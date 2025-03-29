@@ -1,0 +1,7 @@
+.selectField {
+  --height: calc(var(--field-height) + var(--field-border-width) * 2);
+  line-height: var(--line-height);
+  height: var(--height);
+  border-radius: var(--field-border-radius);
+  min-height: var(--height);
+}
