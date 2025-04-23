@@ -1,6 +1,6 @@
 import { ArmorPiece } from "./ArmorPiece.ts";
 import { Character } from "../character/Character.ts";
-import { calcProportionalArmorBonus } from "../rules/Armor.ts";
+import { computeLayeredSP } from "../rules/Armor.ts";
 import { makeAutoObservable } from "mobx";
 import { HitLocation } from "./HitLocations.ts";
 
@@ -51,14 +51,6 @@ export class ArmorStat implements BodyPartsSP {
       stoppingPowers.push(coverSP);
     }
 
-    const sorted = stoppingPowers.sort((a, b) => b - a);
-
-    if (sorted.length > 0)
-      return sorted.reduce((result, sp) => {
-        const spBonus = calcProportionalArmorBonus(result - sp);
-        return result + spBonus;
-      });
-
-    return 0;
+    return computeLayeredSP(...stoppingPowers, coverSP ?? 0);
   }
 }

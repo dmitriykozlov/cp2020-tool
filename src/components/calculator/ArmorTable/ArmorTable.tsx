@@ -6,6 +6,7 @@ import c from "./armorTable.module.css";
 import { CoverSelector } from "../CoverSelect/CoverSelector";
 import { useCoverSelectState } from "@/components/calculator/CoverSelect/useCoverSelectState.ts";
 import { Select } from "@/coreComponents/Select/Select";
+import { computeLayeredSP } from "@domain/rules/Armor.ts";
 
 type ArmorType = "hard" | "soft";
 
@@ -15,7 +16,6 @@ type Layer = {
 };
 type ArmorTableState = {
   cover: {
-    sp: number;
     locations: boolean[];
   };
   layers: Layer[];
@@ -58,7 +58,6 @@ const INITIAL_STATE: ArmorTableState = {
     },
   ],
   cover: {
-    sp: 0,
     locations: Array.from<boolean>({
       length: HIT_LOCATIONS.length,
     }).fill(false),
@@ -162,6 +161,19 @@ export const ArmorTable: React.FC = () => {
     () => state.cover.locations.every((isCovered) => isCovered),
     [state.cover.locations],
   );
+
+  const totalSp = useMemo<number[]>(() => {
+    return HIT_LOCATIONS.map((_, index) => {
+      const stoppingPowers = state.layers.map((layer) =>
+        Number(layer.locations[index]),
+      );
+      if (state.cover.locations[index]) {
+        stoppingPowers.push(coverState.sp);
+      }
+      return computeLayeredSP(...stoppingPowers);
+    });
+  }, [coverState.sp, state.cover.locations, state.layers]);
+
   return (
     <div className={c.wrapper}>
       <table className={c.armorTable}>
@@ -251,8 +263,8 @@ export const ArmorTable: React.FC = () => {
         <tfoot>
           <tr>
             <th>Total:</th>
-            {HIT_LOCATIONS.map((bodyPart) => (
-              <th key={bodyPart}>0</th>
+            {HIT_LOCATIONS.map((bodyPart, index) => (
+              <th key={bodyPart}>{totalSp[index]}</th>
             ))}
           </tr>
         </tfoot>
