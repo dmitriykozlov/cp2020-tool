@@ -1,0 +1,52 @@
+.weapons {
+    border-collapse: collapse;
+}
+
+.weapons th,
+.weapons td {
+    border: 1px solid #ddd;
+}
+
+.weapons th {
+    /*text-align: left;*/
+    /*writing-mode: vertical-lr;*/
+    text-orientation: sideways;
+    transform: rotateZ(-35deg);
+}
+
+.tableHeading {
+    margin: 0.2rem 0;
+}
+
+.weaponWrapper {
+    max-width: 25rem;
+    border: 1px solid #ddd;
+    padding: 0.5rem;
+}
+
+.weaponTypeHeader {
+    font-weight: normal;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.availability {
+    grid-column: 1 / span 3;
+}
+
+.reliability {
+    grid-column: span 2;
+}
+
+.weaponCode {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.important {
+    text-transform: capitalize;
+    font-weight: 500;
+}

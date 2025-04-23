@@ -1,0 +1,13 @@
+.natContainer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+}
+
+.derivedContainer,
+.expContainer {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin: .3rem 0;
+}

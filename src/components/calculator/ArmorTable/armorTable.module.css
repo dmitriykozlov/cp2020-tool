@@ -1,0 +1,36 @@
+.wrapper {
+    display: flex;
+    margin-top: 1rem;
+    align-items: flex-end;
+}
+
+.armorTable {
+    border-collapse: collapse;
+}
+
+.armorTable th,
+.armorTable td {
+    border: 1px solid #ddd;
+    padding: .2rem;
+    text-align: center;
+}
+
+.armorTable th {
+    background-color: #f2f2f2;
+}
+
+.spInput {
+    width: 2rem;
+    text-align: center;
+}
+
+.addButton {
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    height: 2rem;
+    background-color: #7f8e9c;
+    margin-left: 0.5rem;
+}
+

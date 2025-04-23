@@ -1,5 +1,5 @@
 .inputField {
-  padding: 0;
+  padding: 0 .1rem;
   border-radius: var(--field-border-radius);
   min-height: var(--field-height);
   border: var(--field-border-width) solid var(--field-border-color);

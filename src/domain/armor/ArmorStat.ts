@@ -1,9 +1,10 @@
-import { ArmorPiece, BodyPart } from "./ArmorPiece.ts";
+import { ArmorPiece } from "./ArmorPiece.ts";
 import { Character } from "../character/Character.ts";
 import { calcProportionalArmorBonus } from "../rules/Armor.ts";
 import { makeAutoObservable } from "mobx";
+import { HitLocation } from "./HitLocations.ts";
 
-type BodyPartsSP = Record<BodyPart, number>;
+type BodyPartsSP = Record<HitLocation, number>;
 
 export class ArmorStat implements BodyPartsSP {
   character: Character;
@@ -41,7 +42,7 @@ export class ArmorStat implements BodyPartsSP {
     return this.calculateSP("left_leg");
   }
 
-  calculateSP(bodyPart: BodyPart, coverSP?: number): number {
+  calculateSP(bodyPart: HitLocation, coverSP?: number): number {
     const stoppingPowers = this.equipped
       .filter((arm) => arm.cover.has(bodyPart))
       .map((arm) => arm.sp);

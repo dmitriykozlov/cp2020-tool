@@ -1,0 +1,22 @@
+.armorTable {
+  border-collapse: collapse;
+}
+
+.armorTable .bodyPartHeading > th {
+  padding-top: 0.2rem;
+}
+.armorTable .hitTableHeading > th {
+  padding-bottom: 0.2rem;
+}
+
+.armorTable tr > th {
+  padding: 0 0.5rem;
+  line-height: 1rem;
+  background: black;
+  color: white;
+}
+
+.armorTable tr > td {
+  text-align: center;
+  border: solid 1px black;
+}

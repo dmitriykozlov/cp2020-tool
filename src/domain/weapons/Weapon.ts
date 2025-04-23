@@ -8,8 +8,9 @@ import {
   WEAPON_TYPES,
   WeaponType,
 } from "./constants.ts";
-import { DiceFormula } from "../DiceFormula.ts";
+import { DiceFormula } from "../random/DiceFormula.ts";
 import { Valuable } from "../Valuable.ts";
+import { Range } from "../calculator/AttackCalculator.ts";
 
 const CODE_SEPARATOR = "|";
 
@@ -19,7 +20,7 @@ export type WeaponConstructorArgs = {
   accuracy: number;
   concealabillty: Concealabillty;
   availability: Availability;
-  damage: DiceFormula;
+  damage: DiceFormula | string;
   ammo: string;
   shots: number;
   rateOfFire: number;
@@ -27,10 +28,6 @@ export type WeaponConstructorArgs = {
   range: number;
   weight: number;
 } & Valuable;
-
-// type WeaponJSON = WeaponConstructorArgs & {
-//   damage: string;
-// };
 
 export class Weapon implements Valuable {
   name: string;
@@ -53,7 +50,8 @@ export class Weapon implements Valuable {
     this.accuracy = args.accuracy;
     this.concealabillty = args.concealabillty;
     this.availability = args.availability;
-    this.damage = args.damage;
+    if (args.damage instanceof DiceFormula) this.damage = args.damage;
+    else this.damage = DiceFormula.fromFormula(args.damage);
     this.ammo = args.ammo;
     this.shots = args.shots;
     this.rateOfFire = args.rateOfFire;
@@ -67,7 +65,7 @@ export class Weapon implements Valuable {
     return [
       this.name,
       this.type,
-      this.accuracy.toString(),
+      this.accuracy > 0 ? "+" + this.accuracy : this.accuracy.toString(),
       this.concealabillty,
       this.availability,
       this.damage.toString(),
@@ -149,5 +147,11 @@ export class Weapon implements Valuable {
     });
   }
 
-  // static fromJSON(json: string | WeaponJSON): Weapon {}
+  computeRange(distance: number): Range {
+    if (distance <= 2) return "POINT_BLANK";
+    if (distance <= this.range / 4) return "CLOSE";
+    if (distance <= this.range / 2) return "MEDIUM";
+    if (distance <= this.range) return "LONG";
+    return "EXTREME";
+  }
 }

@@ -1,0 +1,15 @@
+.skillRow {
+    font-weight: 500;
+}
+
+.input {
+    display: inline;
+    color: inherit;
+    height: 1.5rem;
+    text-align: center;
+}
+
+.ghost {
+    font-weight: 400;
+    color: #555;
+}

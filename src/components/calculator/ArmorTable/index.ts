@@ -1,0 +1,1 @@
+export { ArmorTable } from "./ArmorTable";
