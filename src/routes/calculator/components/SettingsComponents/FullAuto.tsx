@@ -1,16 +1,9 @@
 import React, { useState } from "react";
-import { FullAutoResult, Range } from "@domain/calculator/AttackCalculator.ts";
-import { Weapon } from "@domain/weapons/Weapon.ts";
 import { attackCalculator } from "@repo";
 import { Input } from "@/coreComponents/Input/Input.tsx";
-import { AttackResultCard } from "@/routes/calculator/components/AttackResult";
+import { CommonProps } from "@/routes/calculator/components/SettingsComponents/common.ts";
 
-export const FullAuto: React.FC<{
-  range: Range | null;
-  skillValue: number;
-  weapon: Weapon;
-}> = (p) => {
-  const [hitResult, setHitResult] = useState<FullAutoResult>();
+export const FullAuto: React.FC<CommonProps> = (p) => {
   const [numOfTargets, setNumOfTargets] = useState("3");
   const numberOfTargets = Number(numOfTargets);
   const enabled = !(
@@ -19,7 +12,7 @@ export const FullAuto: React.FC<{
     Number.isNaN(numberOfTargets)
   );
   return (
-    <div>
+    <>
       <p>
         <Input
           label="# of targets "
@@ -33,7 +26,7 @@ export const FullAuto: React.FC<{
       <button
         disabled={!enabled}
         onClick={() => {
-          setHitResult(
+          p.onCalculate(
             attackCalculator.computeFullAuto(
               p.weapon,
               p.skillValue,
@@ -45,16 +38,6 @@ export const FullAuto: React.FC<{
       >
         Calculate
       </button>
-      <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem" }}>
-        {hitResult &&
-          hitResult.targets.map((target, index) => (
-            <AttackResultCard
-              name={`Target #${index + 1}`}
-              attack={target}
-              key={index}
-            />
-          ))}
-      </div>
-    </div>
+    </>
   );
 };

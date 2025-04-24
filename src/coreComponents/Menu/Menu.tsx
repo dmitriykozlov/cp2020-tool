@@ -20,7 +20,7 @@ export const Menu: React.FC = () => {
           <span>Calculator</span>
         </NavLink>
       </div>
-      <div className="menuOffset" style={{ height: offset }} />
+      <div className={c.menuOffset} style={{ height: offset }} />
     </>
   );
 };

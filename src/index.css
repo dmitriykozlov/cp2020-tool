@@ -12,7 +12,12 @@
   margin: 0;
 }
 
+#root {
+  max-height: 100svh;
+}
+
 body {
+  max-height: 100svh;
   /* 3. Add accessible line-height */
   line-height: 1.5;
   /* 4. Improve text rendering */

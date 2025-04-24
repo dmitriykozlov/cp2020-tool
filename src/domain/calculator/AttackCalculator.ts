@@ -33,9 +33,7 @@ export type AttackResult = {
   hits: Hit[];
 };
 
-export type FullAutoResult = {
-  targets: Array<AttackResult>;
-};
+export type FullAutoResult = Array<AttackResult>;
 
 export type SuppressiveFire = {
   saveNumber: number;
@@ -92,7 +90,7 @@ export class AttackCalculator {
     numberOfTargets: number,
     range: Range,
   ): FullAutoResult {
-    const targets: FullAutoResult["targets"] = [];
+    const targets: FullAutoResult = [];
     const roundsPerTarget = Math.floor(weapon.rateOfFire / numberOfTargets);
     const difficulty = RANGES[range];
 
@@ -119,9 +117,7 @@ export class AttackCalculator {
       });
     }
 
-    return {
-      targets,
-    };
+    return targets;
   }
 
   private computeAttack(...modifiers: number[]): RollResult {

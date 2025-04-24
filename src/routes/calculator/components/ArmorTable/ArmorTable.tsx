@@ -1,13 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { Input } from "@/coreComponents/Input/Input.tsx";
 import { HIT_LOCATIONS, HitLocation } from "@domain/armor/HitLocations.ts";
 import { HIT_LOCATIONS_DISPLAY } from "@/routes/character/components/ArmorBlock/constants.ts";
 import c from "./armorTable.module.css";
-import { CoverSelector } from "../CoverSelect/CoverSelector.tsx";
+import { CoverSelector } from "@/components/CoverSelect/CoverSelector.tsx";
 import { Select } from "@/coreComponents/Select/Select.tsx";
 import { action } from "mobx";
 import { observer } from "mobx-react-lite";
-import { ArmorTableStore, ArmorType } from "./ArmorTableStore.ts";
+import { ArmorTableStore, ArmorType } from "../ArmorTableStore.ts";
 import clsx from "clsx";
 
 type ArmorTableProps = {
@@ -23,9 +23,22 @@ const armorTypeOptions: Array<{ id: ArmorType; display: string }> = [
 export const ArmorTable: React.FC<ArmorTableProps> = observer(
   ({ store, affectedBodyParts }) => {
     const totalSp = store.totalSp;
+    const [btm, setBTM] = useState(store.btm.toString());
 
     return (
       <div className={c.wrapper}>
+        <Input
+          label="BTM: "
+          value={btm}
+          type="number"
+          onChange={action((e) => {
+            setBTM(e.target.value);
+            const num = Number(e.target.value);
+            if (Number.isNaN(num)) {
+              store.btm = num;
+            }
+          })}
+        />
         <table className={c.armorTable}>
           <thead>
             <tr>
