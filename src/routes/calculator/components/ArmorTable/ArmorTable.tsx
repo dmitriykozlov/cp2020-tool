@@ -34,7 +34,7 @@ export const ArmorTable: React.FC<ArmorTableProps> = observer(
           onChange={action((e) => {
             setBTM(e.target.value);
             const num = Number(e.target.value);
-            if (Number.isNaN(num)) {
+            if (!Number.isNaN(num)) {
               store.btm = num;
             }
           })}

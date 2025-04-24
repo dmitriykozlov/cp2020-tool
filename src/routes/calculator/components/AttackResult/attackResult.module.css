@@ -5,6 +5,8 @@
   background-color: #f8f8f8;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   width: fit-content;
+  display: flex;
+  flex-direction: column;
 }
 
 .title {
@@ -47,6 +49,7 @@
   margin-top: 0.5rem;
   align-items: flex-start;
   gap: 1rem;
+  flex: 1 0 auto;
 }
 
 .damageTable {
@@ -110,4 +113,12 @@
   font-weight: normal;
   color: #666;
   font-size: 0.9rem;
+}
+
+.summaryBlock {
+  width: 100%;
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }

@@ -12,12 +12,13 @@ type TargetDamageProps = {
   name: string;
   attack: AttackResult;
   className?: string;
+  ap: boolean;
 };
 
 const CRITICAL_DMG = 8;
 
 export const AttackResultCard: React.FC<TargetDamageProps> = observer(
-  ({ attack, name, className }) => {
+  ({ attack, name, className, ap }) => {
     const damageFormula = attack.hits[0]?.damage.formula.formula;
 
     const armorStore = useMemo<ArmorTableStore>(
@@ -29,7 +30,7 @@ export const AttackResultCard: React.FC<TargetDamageProps> = observer(
       attack.hits.map((hit) => hit.location),
     );
 
-    const damageCalculations = armorStore.totalSpAndTakenDamage;
+    const damageCalculations = armorStore.totalSpAndTakenDamage(ap);
 
     return (
       <div className={clsx(styles.attackCard, className)}>
@@ -87,9 +88,13 @@ export const AttackResultCard: React.FC<TargetDamageProps> = observer(
                       <td
                         className={clsx({
                           [styles.highlight]: val.sp > 0 && val.armorPenetrated,
+                          [styles.dimm]: val.sp == 0,
                         })}
                       >
                         {val.sp}
+                        {ap &&
+                          val.armorPenetrated &&
+                          `(${Math.floor(val.sp / 2)})`}
                       </td>
                       <td>{val.dmg}</td>
                     </tr>
@@ -97,48 +102,52 @@ export const AttackResultCard: React.FC<TargetDamageProps> = observer(
                 })}
               </tbody>
             </table>
-            <h3 className={styles.title}>Summary</h3>
-            <table className={styles.damageTable}>
-              <thead>
-                <tr>
-                  <th></th>
-                  {HIT_LOCATIONS.map((location) => (
-                    <th key={location}>{HIT_LOCATIONS_DISPLAY[location]}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th>New SP</th>
-                  {damageCalculations.newSP.map((sp, index) => (
-                    <td
-                      key={index}
-                      className={clsx(
-                        sp !== armorStore.totalSp[index]
-                          ? styles.highlight
-                          : styles.dimm,
-                      )}
-                    >
-                      {sp}
-                    </td>
-                  ))}
-                </tr>
-                <tr>
-                  <th>Damage</th>
-                  {damageCalculations.damagePerLocation.map((damage, index) => (
-                    <td
-                      key={index}
-                      className={clsx({
-                        [styles.highlight]: damage >= CRITICAL_DMG,
-                        [styles.dimm]: damage == 0,
-                      })}
-                    >
-                      {damage}
-                    </td>
-                  ))}
-                </tr>
-              </tbody>
-            </table>
+            <div className={styles.summaryBlock}>
+              <h3 className={styles.title}>Summary</h3>
+              <table className={styles.damageTable}>
+                <thead>
+                  <tr>
+                    <th></th>
+                    {HIT_LOCATIONS.map((location) => (
+                      <th key={location}>{HIT_LOCATIONS_DISPLAY[location]}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>New SP</th>
+                    {damageCalculations.newSP.map((sp, index) => (
+                      <td
+                        key={index}
+                        className={clsx(
+                          sp !== armorStore.totalSp[index]
+                            ? styles.highlight
+                            : styles.dimm,
+                        )}
+                      >
+                        {sp}
+                      </td>
+                    ))}
+                  </tr>
+                  <tr>
+                    <th>Damage</th>
+                    {damageCalculations.damagePerLocation.map(
+                      (damage, index) => (
+                        <td
+                          key={index}
+                          className={clsx({
+                            [styles.highlight]: damage >= CRITICAL_DMG,
+                            [styles.dimm]: damage == 0,
+                          })}
+                        >
+                          {damage}
+                        </td>
+                      ),
+                    )}
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         )}
       </div>

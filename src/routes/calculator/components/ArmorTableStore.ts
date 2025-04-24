@@ -1,29 +1,17 @@
-import { makeAutoObservable, remove } from "mobx";
-import {
-  HIT_LOCATION_INDEX,
-  HIT_LOCATIONS,
-} from "@domain/armor/HitLocations.ts";
+import { IObservableArray, makeAutoObservable, remove } from "mobx";
+import { HIT_LOCATIONS } from "@domain/armor/HitLocations.ts";
 import { computeLayeredSP } from "@domain/rules/Armor.ts";
 import { AttackResult } from "@domain/calculator/AttackCalculator.ts";
-import { IObservableArray } from "mobx/dist/internal";
+import {
+  calculateDamage,
+  TakenDamageCalculations,
+} from "@domain/calculator/DamageCalculator";
 
 export type ArmorType = "hard" | "soft";
 
 export type Layer = {
   type: ArmorType;
   locations: string[];
-};
-
-type DamagePerHit = {
-  sp: number;
-  armorPenetrated: boolean;
-  dmg: number;
-};
-
-type TakenDamageCalculations = {
-  hits: DamagePerHit[];
-  newSP: number[];
-  damagePerLocation: number[];
 };
 
 export class ArmorTableStore {
@@ -67,40 +55,8 @@ export class ArmorTableStore {
     });
   }
 
-  get totalSpAndTakenDamage(): TakenDamageCalculations {
-    const stoppingPowers = Array.from(this.totalSp);
-    const hits: Array<DamagePerHit> = [];
-    for (const hit of this.attack.hits) {
-      const sp = stoppingPowers[HIT_LOCATION_INDEX[hit.location]];
-      let penetratedDamage = Math.max(hit.damage.result - sp, 0);
-      const armorPenetrated = penetratedDamage > 0;
-
-      if (hit.location === "head" && armorPenetrated) {
-        penetratedDamage = penetratedDamage * 2;
-      }
-
-      if (armorPenetrated) {
-        stoppingPowers[HIT_LOCATION_INDEX[hit.location]] = Math.max(sp - 1, 0);
-      }
-
-      hits.push({
-        sp,
-        armorPenetrated,
-        dmg: Math.max(penetratedDamage - this.btm, 0),
-      });
-    }
-    const damagePerLocation = hits.reduce(
-      (result, hit, index) => {
-        result[HIT_LOCATION_INDEX[this.attack.hits[index].location]] += hit.dmg;
-        return result;
-      },
-      Array.from<number>({ length: HIT_LOCATIONS.length }).fill(0),
-    );
-    return {
-      hits,
-      newSP: stoppingPowers,
-      damagePerLocation,
-    };
+  totalSpAndTakenDamage(armorPiercing: boolean): TakenDamageCalculations {
+    return calculateDamage(this.attack, this.totalSp, this.btm, armorPiercing);
   }
 
   addRow(): void {

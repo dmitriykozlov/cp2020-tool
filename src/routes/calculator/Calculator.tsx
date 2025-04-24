@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useId, useState } from "react";
 import { Select } from "@/coreComponents/Select/Select.tsx";
 import { Weapon } from "@domain/weapons/Weapon.ts";
 import { Input } from "@/coreComponents/Input/Input.tsx";
@@ -35,6 +35,8 @@ const Calculator: React.FC = () => {
   const [distance, setDistance] = useState("20");
   const [skillValue, setSkillValue] = useState("14");
   const [fireMode, setFireMode] = useState<Mode>("single");
+  const apCheckboxId = useId();
+  const [ap, setAp] = useState(false);
   const distanceNum = Number(distance);
   let range: Range | null = null;
   if (distance && !Number.isNaN(distanceNum)) {
@@ -56,7 +58,17 @@ const Calculator: React.FC = () => {
           }}
         />
         <WeaponCard weapon={weapon} />
-        {/*<p>{weapon.codeAsArray.slice(1,-1).join("|")}</p>*/}
+        <p>
+          <label htmlFor={apCheckboxId}>
+            <input
+              type="checkbox"
+              id={apCheckboxId}
+              checked={ap}
+              onChange={() => setAp((prev) => !prev)}
+            />
+            Armor piercing
+          </label>
+        </p>
         <p>
           <Input
             label="Distance "
@@ -111,7 +123,7 @@ const Calculator: React.FC = () => {
       </aside>
       <div className={c.cards}>
         {attacks.map((attack, i) => (
-          <AttackResultCard attack={attack} name={`Attack #${i + 1}`} />
+          <AttackResultCard attack={attack} name={`Attack #${i + 1}`} ap={ap} />
         ))}
       </div>
     </div>
