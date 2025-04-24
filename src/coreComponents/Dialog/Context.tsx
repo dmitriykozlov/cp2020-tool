@@ -21,7 +21,15 @@ export const DialogProvider: React.FC<ProviderProps> = ({ children }) => {
     return new Promise((resolve, reject) => {
       const id = uuid();
       setOpened((current) => {
-        return current.concat([{ id, Component, props, resolve, reject }]);
+        return current.concat([
+          {
+            id,
+            Component,
+            props,
+            resolve,
+            reject,
+          },
+        ]);
       });
     });
   };

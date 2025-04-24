@@ -1,10 +1,7 @@
 import React, { use } from "react";
 
-// eslint-disable-next-line
-export type OpenFn = <Props = {}>(
-  Component: React.FC<Props>,
-  props: Props,
-) => Promise<unknown>;
+export type OpenFn = (Component: React.FC, props: object) => Promise<unknown>;
+
 export const DialogContext = React.createContext<{
   open: OpenFn;
   // @ts-expect-error because

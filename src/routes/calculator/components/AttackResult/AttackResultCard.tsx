@@ -96,7 +96,13 @@ export const AttackResultCard: React.FC<TargetDamageProps> = observer(
                           val.armorPenetrated &&
                           `(${Math.floor(val.sp / 2)})`}
                       </td>
-                      <td>{val.dmg}</td>
+                      <td
+                        className={clsx({
+                          [styles.dimm]: val.dmg == 0,
+                        })}
+                      >
+                        {val.dmg}
+                      </td>
                     </tr>
                   );
                 })}
