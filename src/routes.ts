@@ -9,13 +9,13 @@ export const router = createBrowserRouter([
       {
         index: true,
         Component: React.lazy(
-          () => import("./routes/charachter/CharacterPage.tsx"),
+          () => import("./routes/character/CharacterPage.tsx"),
         ),
       },
       {
         path: "calculator",
         Component: React.lazy(
-          () => import("./rotes/calculator/Calculator.tsx"),
+          () => import("./routes/calculator/Calculator.tsx"),
         ),
       },
     ],

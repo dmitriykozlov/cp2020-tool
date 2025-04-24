@@ -4,7 +4,7 @@ import styles from "./attackResult.module.css";
 import clsx from "clsx";
 import { ArmorTable } from "@/routes/calculator/components/ArmorTable";
 import { ArmorTableStore } from "@/routes/calculator/components/ArmorTable/ArmorTableStore.ts";
-import { HIT_LOCATIONS_DISPLAY } from "@/routes/charachter/components/ArmorBlock/constants.ts";
+import { HIT_LOCATIONS_DISPLAY } from "@/routes/character/components/ArmorBlock/constants.ts";
 import { HIT_LOCATION_INDEX, HitLocation } from "@domain/armor/HitLocations.ts";
 import { observer } from "mobx-react-lite";
 

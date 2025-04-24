@@ -1,7 +1,7 @@
 import React from "react";
 import { Input } from "@/coreComponents/Input/Input.tsx";
 import { HIT_LOCATIONS, HitLocation } from "@domain/armor/HitLocations.ts";
-import { HIT_LOCATIONS_DISPLAY } from "@/routes/charachter/components/ArmorBlock/constants.ts";
+import { HIT_LOCATIONS_DISPLAY } from "@/routes/character/components/ArmorBlock/constants.ts";
 import c from "./armorTable.module.css";
 import { CoverSelector } from "../CoverSelect/CoverSelector.tsx";
 import { Select } from "@/coreComponents/Select/Select.tsx";
