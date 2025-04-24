@@ -43,7 +43,6 @@ export class DiceFormula {
 
   static fromFormula(formula: string): DiceFormula {
     const result = formulaRegex.exec(formula);
-    console.log(result);
     if (result) {
       const amount = Number(result[1]);
       const dieSides = Number(result[2]);

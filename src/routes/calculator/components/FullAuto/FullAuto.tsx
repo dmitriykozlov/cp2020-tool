@@ -3,7 +3,7 @@ import { FullAutoResult, Range } from "@domain/calculator/AttackCalculator.ts";
 import { Weapon } from "@domain/weapons/Weapon.ts";
 import { attackCalculator } from "@repo";
 import { Input } from "@/coreComponents/Input/Input.tsx";
-import { AttackResultCard } from "@/components/calculator/AttackResult";
+import { AttackResultCard } from "@/routes/calculator/components/AttackResult";
 
 export const FullAuto: React.FC<{
   range: Range | null;
@@ -11,7 +11,7 @@ export const FullAuto: React.FC<{
   weapon: Weapon;
 }> = (p) => {
   const [hitResult, setHitResult] = useState<FullAutoResult>();
-  const [numOfTargets, setNumOfTargets] = useState("1");
+  const [numOfTargets, setNumOfTargets] = useState("3");
   const numberOfTargets = Number(numOfTargets);
   const enabled = !(
     !p.range ||
@@ -45,7 +45,7 @@ export const FullAuto: React.FC<{
       >
         Calculate
       </button>
-      <div>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem" }}>
         {hitResult &&
           hitResult.targets.map((target, index) => (
             <AttackResultCard

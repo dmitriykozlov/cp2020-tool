@@ -18,7 +18,6 @@ export function computeLayeredSP(...stoppingPowers: number[]): number {
   const sorted = stoppingPowers
     .filter((value) => value > 0)
     .sort((a, b) => b - a);
-  console.log(sorted);
 
   if (sorted.length > 0)
     return sorted.reduce((result, sp) => {

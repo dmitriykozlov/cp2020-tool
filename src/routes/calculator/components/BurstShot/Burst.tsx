@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Weapon } from "@domain/weapons/Weapon.ts";
 import { attackCalculator } from "@repo";
-import { AttackResultCard } from "@/components/calculator/AttackResult";
+import { AttackResultCard } from "@/routes/calculator/components/AttackResult";
 import { AttackResult, Range } from "@domain/calculator/AttackCalculator.ts";
 
 export const BurstShot: React.FC<{
@@ -24,9 +24,7 @@ export const BurstShot: React.FC<{
       >
         Calculate
       </button>
-      {hitResult && (
-        <AttackResultCard attack={hitResult} rangeBonus={3} name={"1"} />
-      )}
+      {hitResult && <AttackResultCard attack={hitResult} name={"1"} />}
     </div>
   );
 };

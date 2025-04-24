@@ -1,11 +1,11 @@
-.targetDamageItem {
+.attackCard {
     border: 1px solid #ccc;
     border-radius: 8px;
     padding: 1rem;
     background-color: #f8f8f8;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin-bottom: 1rem;
-    /*width: fit-content;*/
+    width: fit-content;
 }
 
 .title {
@@ -41,9 +41,17 @@
     font-size: 1.1rem;
 }
 
-.damageTable {
-    border-collapse: collapse;
+.tables {
+    display: flex;
+    flex-direction: column;
     margin-top: 0.5rem;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.damageTable {
+    width: 100%;
+    border-collapse: collapse;
     border: 1px solid #ddd;
 }
 

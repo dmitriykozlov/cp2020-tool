@@ -8,11 +8,15 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        Component: React.lazy(() => import("./routes/CharacterPage.tsx")),
+        Component: React.lazy(
+          () => import("./routes/charachter/CharacterPage.tsx"),
+        ),
       },
       {
         path: "calculator",
-        Component: React.lazy(() => import("./routes/Calculator.tsx")),
+        Component: React.lazy(
+          () => import("./rotes/calculator/Calculator.tsx"),
+        ),
       },
     ],
   },

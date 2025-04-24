@@ -1,7 +1,4 @@
 .wrapper {
-    display: flex;
-    margin-top: 1rem;
-    align-items: flex-end;
 }
 
 .armorTable {
@@ -19,9 +16,17 @@
     background-color: #f2f2f2;
 }
 
+th.affected, td.affected {
+    background-color: #ffe6e6;
+}
+
 .spInput {
     width: 2rem;
     text-align: center;
+}
+
+td.removeButtonCell {
+    border: none;
 }
 
 .addButton {
@@ -31,6 +36,6 @@
     cursor: pointer;
     height: 2rem;
     background-color: #7f8e9c;
-    margin-left: 0.5rem;
+    margin-top: 0.5rem;
 }
 

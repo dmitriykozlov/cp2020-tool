@@ -1,13 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { HIT_LOCATIONS, HIT_TABLE } from "@domain/armor/HitLocations.ts";
 import c from "./armor.module.css";
 import { HIT_LOCATIONS_DISPLAY } from "./constants.ts";
-import { CoverSelector } from "@/components/calculator/CoverSelect/CoverSelector.tsx";
-import { useCoverSelectState } from "@/components/calculator/CoverSelect/useCoverSelectState.ts";
+import { CoverSelector } from "@/routes/calculator/components/CoverSelect/CoverSelector.tsx";
 import { character } from "@/repository";
 
 export const ArmorBlock: React.FC = () => {
-  const [state, dispatch] = useCoverSelectState();
+  const [coverSp, setCoverSp] = useState(0);
   return (
     <div>
       <h2>Armor</h2>
@@ -34,14 +33,19 @@ export const ArmorBlock: React.FC = () => {
           <tr>
             {HIT_LOCATIONS.map((bodyPart) => (
               <td key={bodyPart}>
-                {character.armorStat.calculateSP(bodyPart, state.sp)}
+                {character.armorStat.calculateSP(bodyPart, coverSp)}
               </td>
             ))}
           </tr>
         </tbody>
       </table>
       <h3>Cover</h3>
-      <CoverSelector state={state} dispatch={dispatch} />
+      <CoverSelector
+        value={coverSp}
+        onChange={(value) => {
+          setCoverSp(value);
+        }}
+      />
     </div>
   );
 };

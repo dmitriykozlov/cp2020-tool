@@ -60,7 +60,7 @@ export class AttackCalculator {
   ): AttackResult {
     const attack = this.computeAttack(skillValue, weapon.accuracy);
     const hits: Hit[] = [];
-    if (attack.result >= RANGES[range]) {
+    if (!attack.isCriticalFailure && attack.result >= RANGES[range]) {
       hits.push(this.computeHit(weapon));
     }
 
@@ -75,7 +75,7 @@ export class AttackCalculator {
     const attack = this.computeAttack(skillValue, weapon.accuracy, burstBonus);
 
     let hits: Hit[] = [];
-    if (attack.result >= RANGES[range]) {
+    if (!attack.isCriticalFailure && attack.result >= RANGES[range]) {
       const hitsAmount = this.randomDice.roll(3, 1);
       hits = this.computeSeveralHits(hitsAmount.result, weapon);
     }

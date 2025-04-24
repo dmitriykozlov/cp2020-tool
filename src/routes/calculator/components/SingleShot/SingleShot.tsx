@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { AttackResult, Range } from "@domain/calculator/AttackCalculator.ts";
 import { Weapon } from "@domain/weapons/Weapon.ts";
 import { attackCalculator } from "@repo";
-import { AttackResultCard } from "@/components/calculator/AttackResult";
+import { AttackResultCard } from "@/routes/calculator/components/AttackResult";
 
 export const SingleShot: React.FC<{
   range: Range | null;

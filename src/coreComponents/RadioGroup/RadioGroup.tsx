@@ -7,6 +7,7 @@ interface RadioGroupProps {
   options: Array<{
     value: string;
     label: string;
+    disabled?: boolean;
   }>;
   value?: string;
   onChange?: (value: string) => void;
@@ -38,6 +39,7 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
             id={id + option.value}
             onChange={(e) => onChange?.(e.target.value)}
             className={c.input}
+            disabled={option.disabled}
           />
           <span className={c.label}>{option.label}</span>
         </label>

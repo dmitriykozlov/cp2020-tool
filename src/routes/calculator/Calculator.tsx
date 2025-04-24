@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { Select } from "@/coreComponents/Select/Select";
+import { Select } from "@/coreComponents/Select/Select.tsx";
 import { Weapon } from "@domain/weapons/Weapon.ts";
 import { Input } from "@/coreComponents/Input/Input.tsx";
 import { Range, RANGES } from "@domain/calculator/AttackCalculator.ts";
-import { SingleShot } from "@/components/calculator/SingleShot/SingleShot.tsx";
-import { BurstShot } from "@/components/calculator/BurstShot/Burst.tsx";
-import { FullAuto } from "@/components/calculator/FullAuto/FullAuto.tsx";
+import { SingleShot } from "@/routes/calculator/components/SingleShot/SingleShot.tsx";
+import { BurstShot } from "@/routes/calculator/components/BurstShot/Burst.tsx";
+import { FullAuto } from "@/routes/calculator/components/FullAuto/FullAuto.tsx";
 import { RadioGroup } from "@/coreComponents/RadioGroup/RadioGroup.tsx";
 
 const weapons: Weapon[] = [
@@ -25,8 +25,8 @@ type Mode = keyof typeof modeComponents;
 
 const Calculator: React.FC = () => {
   const [weapon, setWeapon] = useState(weapons[1]);
-  const [distance, setDistance] = useState("");
-  const [skillValue, setSkillValue] = useState("0");
+  const [distance, setDistance] = useState("20");
+  const [skillValue, setSkillValue] = useState("14");
   const [fireMode, setFireMode] = useState<Mode>("single");
   const distanceNum = Number(distance);
   let range: Range | null = null;
@@ -44,7 +44,7 @@ const Calculator: React.FC = () => {
           setWeapon(weapons.find((w) => w.name === id)!);
         }}
       />
-      <p>{weapon.code}</p>
+      <p>{weapon.codeAsArray.slice(1).join("|")}</p>
       <p>
         <Input
           label="Distance "
@@ -77,8 +77,8 @@ const Calculator: React.FC = () => {
         value={fireMode}
         options={[
           { value: "single", label: "Single shot" },
-          { value: "burst", label: "3 round burst" },
-          { value: "auto", label: "Full auto" },
+          { value: "burst", label: "3 round burst", disabled: weapon.ROF < 3 },
+          { value: "auto", label: "Full auto", disabled: weapon.ROF < 4 },
         ]}
         onChange={(value) => {
           setFireMode(value as Mode);
