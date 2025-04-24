@@ -13,6 +13,7 @@ import { FullAuto } from "@/routes/calculator/components/SettingsComponents/Full
 import { RadioGroup } from "@/coreComponents/RadioGroup/RadioGroup.tsx";
 import c from "./calc.module.css";
 import { AttackResultCard } from "@/routes/calculator/components/AttackResult";
+import { WeaponCard } from "@/components/WeaponCard/WeaponCard.tsx";
 
 const weapons: Weapon[] = [
   Weapon.fromCode("Stern meyer Type 35|P|0|J|C|3D6|11mm|8|2|VR|50|0.5"),
@@ -54,7 +55,8 @@ const Calculator: React.FC = () => {
             setWeapon(weapons.find((w) => w.name === id)!);
           }}
         />
-        <p>{weapon.codeAsArray.slice(1).join("|")}</p>
+        <WeaponCard weapon={weapon} />
+        {/*<p>{weapon.codeAsArray.slice(1,-1).join("|")}</p>*/}
         <p>
           <Input
             label="Distance "

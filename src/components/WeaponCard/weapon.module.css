@@ -1,0 +1,36 @@
+.weaponWrapper {
+  max-width: 25rem;
+  border: 1px solid #ddd;
+  padding: 0.5rem;
+}
+
+.weaponTypeHeader {
+  font-weight: normal;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.availability {
+  grid-column: 1 / span 3;
+}
+
+.reliability {
+  grid-column: span 2;
+}
+
+.weaponCode {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.important {
+  text-transform: capitalize;
+  font-weight: 500;
+}
+
+@container (width<20rem) {
+
+}
