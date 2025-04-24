@@ -7,13 +7,13 @@ export const router = createBrowserRouter([
     Component: React.lazy(() => import("./App.tsx")),
     children: [
       {
-        index: true,
+        path: "character",
         Component: React.lazy(
           () => import("./routes/character/CharacterPage.tsx"),
         ),
       },
       {
-        path: "calculator",
+        index: true,
         Component: React.lazy(
           () => import("./routes/calculator/Calculator.tsx"),
         ),
