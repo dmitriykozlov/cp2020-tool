@@ -3,7 +3,7 @@ import React from "react";
 
 export const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/cp2020-tool",
     Component: React.lazy(() => import("./App.tsx")),
     children: [
       {
