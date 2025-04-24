@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { attackCalculator } from "@repo";
 import { Input } from "@/coreComponents/Input/Input.tsx";
 import { CommonProps } from "@/routes/calculator/components/SettingsComponents/common.ts";
+import styles from "@/routes/calculator/components/SettingsComponents/settings.module.css";
 
 export const FullAuto: React.FC<CommonProps> = (p) => {
   const [numOfTargets, setNumOfTargets] = useState("3");
@@ -24,6 +25,7 @@ export const FullAuto: React.FC<CommonProps> = (p) => {
         />
       </p>
       <button
+        className={styles.fire}
         disabled={!enabled}
         onClick={() => {
           p.onCalculate(
@@ -36,7 +38,7 @@ export const FullAuto: React.FC<CommonProps> = (p) => {
           );
         }}
       >
-        Calculate
+        Fire!
       </button>
     </>
   );
