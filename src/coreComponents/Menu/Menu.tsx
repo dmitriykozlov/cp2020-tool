@@ -13,10 +13,10 @@ export const Menu: React.FC = () => {
   return (
     <>
       <div className={c.menuContainer} ref={ref}>
-        <NavLink to="/">
+        <NavLink to="/character">
           <span>Home</span>
         </NavLink>
-        <NavLink to="/calculator">
+        <NavLink to="/">
           <span>Calculator</span>
         </NavLink>
       </div>
