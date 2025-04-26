@@ -1,5 +1,5 @@
 import React from "react";
-import { character } from "@repo";
+import { character } from "@repo/main.ts";
 
 export const GearBlock: React.FC = () => {
   return (

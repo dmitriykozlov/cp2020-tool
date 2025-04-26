@@ -14,9 +14,6 @@
       "@domain/*": [
         "./src/domain/*"
       ],
-      "@repo": [
-        "./src/repository/index.tsx"
-      ],
       "@repo/*": [
         "./src/repository/*"
       ]

@@ -1,7 +1,7 @@
 import React from "react";
 import c from "./stat-block.module.css";
 import { naturalStats } from "@domain/rules/Stats.ts";
-import { character } from "@repo";
+import { character } from "@repo/main.ts";
 import { NatStat } from "./NatStat/NatStat.tsx";
 import { ComStat } from "./ComStat/ComStat.tsx";
 import { observer } from "mobx-react-lite";

@@ -4,7 +4,7 @@ import { observer } from "mobx-react-lite";
 import { action } from "mobx";
 import { ROLE_NAMES } from "@domain/rules/Roles.ts";
 import { Input } from "@/coreComponents/Input/Input.tsx";
-import { character } from "@repo";
+import { character } from "@repo/main.ts";
 import { Option, Select } from "@/coreComponents/Select/Select.tsx";
 
 // type Props = {};

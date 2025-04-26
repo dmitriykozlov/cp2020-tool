@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import c from "./skill.module.css";
 import { Skill } from "@domain/character/Skill.ts";
 import clsx from "clsx";
-import { character } from "@repo";
+import { character } from "@repo/main.ts";
 import { Input } from "@/coreComponents/Input/Input.tsx";
 import { observer } from "mobx-react-lite";
 

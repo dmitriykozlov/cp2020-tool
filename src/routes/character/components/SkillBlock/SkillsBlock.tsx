@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { SkillView } from "./SkillView.tsx";
 import c from "./skill-block.module.css";
-import { character } from "@repo";
+import { character } from "@repo/main.ts";
 import { skillDescriptions, SkillGroupName } from "@domain/rules/skills";
 import clsx from "clsx";
 
