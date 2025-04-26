@@ -14,6 +14,22 @@ import { Range } from "../calculator/AttackCalculator.ts";
 
 const CODE_SEPARATOR = "|";
 
+type JSONRep = {
+  name: string;
+  group: string;
+  type: string;
+  wa: number;
+  con: string;
+  avail: string;
+  dmg: string;
+  ammo: string;
+  shots: number;
+  rof: number;
+  rel: string;
+  range: number;
+  cost: number;
+};
+
 export type WeaponConstructorArgs = {
   name: string;
   type: WeaponType;
@@ -27,6 +43,7 @@ export type WeaponConstructorArgs = {
   reliability: Reliability;
   range: number;
   weight: number;
+  group?: string;
 } & Valuable;
 
 export class Weapon implements Valuable {
@@ -43,6 +60,7 @@ export class Weapon implements Valuable {
   range: number;
   weight: number;
   cost: number;
+  group: string;
 
   constructor(args: WeaponConstructorArgs) {
     this.name = args.name;
@@ -59,6 +77,7 @@ export class Weapon implements Valuable {
     this.range = args.range;
     this.weight = args.weight;
     this.cost = args.cost;
+    this.group = args.group ?? "No group";
   }
 
   get codeAsArray(): string[] {
@@ -144,6 +163,41 @@ export class Weapon implements Valuable {
       range: rangeNumber,
       weight: weightNumber,
       cost: costNumber,
+    });
+  }
+
+  static fromJSON(data: JSONRep) {
+    if (!(data.avail in AVAILABILITY)) {
+      throw new Error(
+        `Availability for ${data.name} is invalid: ${data.avail}`,
+      );
+    }
+    if (!(data.con in CONCEALABILITY)) {
+      throw new Error(
+        `Concealability for ${data.name} is invalid: ${data.con}`,
+      );
+    }
+    if (!(data.rel in RELIABILITY)) {
+      throw new Error(`Reliability for ${data.name} is invalid: ${data.rel}`);
+    }
+    if (!(data.type in WEAPON_TYPES)) {
+      throw new Error(`Type for ${data.name} is invalid: ${data.type}`);
+    }
+    return new Weapon({
+      accuracy: data.wa,
+      ammo: data.ammo,
+      availability: data.avail as Availability,
+      concealabillty: data.con as Concealabillty,
+      cost: data.cost,
+      damage: DiceFormula.fromFormula(data.dmg),
+      name: data.name,
+      range: data.range,
+      rateOfFire: data.rof,
+      reliability: data.rel as Reliability,
+      shots: data.shots,
+      type: data.type as WeaponType,
+      weight: 0,
+      group: data.group,
     });
   }
 

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { attackCalculator } from "@repo";
+import { attackCalculator } from "@repo/main";
 import { Input } from "@/coreComponents/Input/Input.tsx";
 import { CommonProps } from "@/routes/calculator/components/SettingsComponents/common.ts";
 import styles from "@/routes/calculator/components/SettingsComponents/settings.module.css";

@@ -1,0 +1,28 @@
+name,group,type,wa,conceal,avail,dmg,ammo,shots,rof,rel,range,cost
+BudgetArms C-13,Light autopistols,P,-1,P,E,1D6,5mm,8,2,ST,50,75
+Dai Lung Cybermag 15,Light autopistols,P,-1,P,C,1D6+1,6mm,10,2,UR,50,50
+Federated Arms X-22,Light autopistols,P,0,P,E,1D6+1,6mm,10,2,ST,50,150
+Mlitech Arms Avenger,Medium autopistols,P,0,J,E,2D6+1,9mm,10,2,VR,50,250
+Dai Lung Streetmaster|,Medium autopistols,P,0,J,E,2D6+3,10mm,12,2,UR,50,250
+Federated Arms X-9mm,Medium autopistols,P,0,J,E,2D6+1,9mm,12,2,ST,50,300
+BudgetArms Auto,Heavy autopistols,P,-1,J,E,3D6,11mm,8,2,UR,50,350
+Sternmeyer Type 35,Heavy autopistols,P,0,J,C,3D6,11mm,8,2,VR,50,400
+Armalite 44,Very heavy autopistols,P,0,J,E,4D6+1,12mm,8,1,ST,50,450
+Colt AMT Model 2000,Very heavy autopistols,P,0,J,C,4D6+1,12mm,8,1,VR,50,500
+Uzi Miniauto 9,Light SMG,SMG,1,J,E,2D6+1,9mm,30,35,VR,150,475
+H&K MP-2013,Light SMG,SMG,1,J,C,2D6+3,10mm,35,32,ST,150,450
+Fed. Arms Tech Assault II,Light SMG,SMG,1,J,C,1D6+1,6mm,50,25,ST,150,400
+Arasaka Minami 10,Medium SMG,SMG,0,J,E,2D6+ 3,10mm,40,20,VR,200,500
+H&K MPK-9,Medium SMG,SMG,1,J,C,2D6+1,9mm,35,25,ST,200,520
+Sternmeyer SMG 21,Heavy SMG,SMG,-1,L,E,3D6,11mm,30,15,VR,200,500
+H&K MPK-11 ,Heavy SMG,SMG,0,L,C,4D6+1,12mm,30,20,ST,200,700
+Ingram MAC 14 ,Heavy SMG,SMG,-2,L,E,4D6+1,12mm,20,10,ST,200,650
+Militech Ronin Light Assault,Assult rifles,RIF,1,N,C,5D6,5.56,35,30,VR,400,450
+AKR-20 Medium Assault,Assult rifles,RIF,0,N,C,5D6,5.56,30,30,ST,400,500
+FN-RAL Heavy Assault Rifle,Assult rifles,RIF,-1,N,C,6D6+2,7.62,30,30,VR,400,600
+Kalishnikov A-80 Hvy. Rifle ,Assult rifles,RIF,-1,N,E,6D6+3,7.62,35,25,ST,400,550
+Arasaka Rapid Assault 12 ,Shotguns,SHT,-1,N,C,4D6,00,20,10,ST,50,900
+Sternmeyer Stakeout 10,Shotguns,SHT,-2,N,R,4D6,00,10,2,ST,50,450
+Barrett-Arasaka Light 20mm,Heavy weapons,HVY,0,N,R,4D10,AP(20/9mm),10,1,VR,450,2000
+Scorpion 16 Missile Launcher,Heavy weapons,HVY,-1,N,R,7D10,,1,1,VR,1000,3000
+Militech Arms RPG-A,Heavy weapons,HVY,-2,N,R,6D10,,1,1,VR,750,1500

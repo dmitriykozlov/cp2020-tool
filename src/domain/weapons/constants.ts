@@ -1,7 +1,7 @@
 export const WEAPON_TYPES = {
   P: "pistol",
   SMG: "submachine gun",
-  SHG: "shotguns",
+  SHT: "shotguns",
   RIF: "rifles",
   HVY: "heavy weapon",
   MELEE: "melee weapon",
@@ -15,6 +15,10 @@ export const CONCEALABILITY = {
   J: "Jacket, Coat or Shoulder Rig",
   L: "Long Coat",
   N: "Can't be Hidden",
+};
+
+export const GROUPS = {
+
 };
 
 export type Concealabillty = keyof typeof CONCEALABILITY;

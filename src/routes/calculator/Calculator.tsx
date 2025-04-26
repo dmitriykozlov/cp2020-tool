@@ -1,6 +1,5 @@
 import React, { useId, useState } from "react";
-import { Select } from "@/coreComponents/Select/Select.tsx";
-import { Weapon } from "@domain/weapons/Weapon.ts";
+import { Option, Select } from "@/coreComponents/Select/Select.tsx";
 import { Input } from "@/coreComponents/Input/Input.tsx";
 import {
   AttackResult,
@@ -14,13 +13,28 @@ import { RadioGroup } from "@/coreComponents/RadioGroup/RadioGroup.tsx";
 import c from "./calc.module.css";
 import { AttackResultCard } from "@/routes/calculator/components/AttackResult";
 import { WeaponCard } from "@/components/WeaponCard/WeaponCard.tsx";
+import { weapons } from "@repo/weapons.ts";
+import { Weapon } from "@domain/weapons/Weapon.ts";
 
-const weapons: Weapon[] = [
-  Weapon.fromCode("Stern meyer Type 35|P|0|J|C|3D6|11mm|8|2|VR|50|0.5"),
-  Weapon.fromCode("H&K MP-2013|SMG|+1|J|C|2D6+3|10mm|35|32|ST|150|0.5"),
-];
+const grouped: Map<string, Array<Weapon>> = new Map();
 
-const options = weapons.map((w) => ({ id: w.name, display: w.name }));
+weapons.forEach((weapon) => {
+  if (grouped.has(weapon.group)) {
+    grouped.get(weapon.group)?.push(weapon);
+  } else {
+    grouped.set(weapon.group, [weapon]);
+  }
+});
+
+const options = grouped
+  .entries()
+  .flatMap(([group, weapons]) => {
+    return [
+      { id: group, display: `---${group}---` },
+      ...weapons.map((w) => ({ id: w.name, display: w.name })),
+    ] as Option[];
+  })
+  .toArray();
 
 const modeComponents = {
   single: SingleShot,
@@ -54,7 +68,8 @@ const Calculator: React.FC = () => {
           value={weapon.name}
           options={options}
           onChange={(id) => {
-            setWeapon(weapons.find((w) => w.name === id)!);
+            const weapon = weapons.find((w) => w.name === id);
+            if (weapon) setWeapon(weapon);
           }}
         />
         <WeaponCard weapon={weapon} />

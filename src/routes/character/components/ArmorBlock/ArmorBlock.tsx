@@ -3,7 +3,7 @@ import { HIT_LOCATIONS, HIT_TABLE } from "@domain/armor/HitLocations.ts";
 import c from "./armor.module.css";
 import { HIT_LOCATIONS_DISPLAY } from "./constants.ts";
 import { CoverSelector } from "@/components/CoverSelect/CoverSelector.tsx";
-import { character } from "@/repository";
+import { character } from "@repo/main.ts";
 
 export const ArmorBlock: React.FC = () => {
   const [coverSp, setCoverSp] = useState(0);

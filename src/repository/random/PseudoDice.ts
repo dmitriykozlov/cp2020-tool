@@ -1,4 +1,4 @@
-import { RandomDice } from "../domain/random/Dice.ts";
+import { RandomDice } from "@domain/random/Dice.ts";
 import { RollResult } from "@domain/random/RollResult.ts";
 
 export class PseudoDice implements RandomDice {

@@ -13,7 +13,7 @@ interface WeaponCardProps {
 }
 
 export const WeaponCard: React.FC<WeaponCardProps> = ({ weapon }) => {
-  const [showFull, setShowFull] = useState(false);
+  const [showFull, setShowFull] = useState(true);
   const accuracy = weapon.accuracy < 0 ? "-" : "+" + weapon.accuracy;
 
   return (
@@ -36,32 +36,32 @@ export const WeaponCard: React.FC<WeaponCardProps> = ({ weapon }) => {
       )}
       {showFull && (
         <div className={c.stats}>
-          <p>
+          <p className={c.type}>
             Type:{" "}
             <span className={c.important}>{WEAPON_TYPES[weapon.type]}</span>
           </p>
-          <p>
+          <p className={c.accuracy}>
             Accuracy: <span className={c.important}>{accuracy}</span>
           </p>
-          <p>
+          <p className={c.dmg}>
             Dmg: <span className={c.important}>{weapon.damage.formula}</span>
           </p>
-          <p>
+          <p className={c.ammo}>
             Ammo: <span className={c.important}>{weapon.ammo}</span>
           </p>
-          <p>
+          <p className={c.shots}>
             Shots: <span className={c.important}>{weapon.shots}</span>
           </p>
-          <p>
+          <p className={c.rof}>
             ROF: <span className={c.important}>{weapon.ROF}</span>
           </p>
-          <p>
+          <p className={c.range}>
             Range: <span className={c.important}>{weapon.range}m</span>
           </p>
           <p className={c.reliability}>
             Reliability: <span>{RELIABILITY[weapon.reliability]}</span>
           </p>
-          <p className={c.availability}>
+          <p className={c.conceal}>
             Can conceal in <span>{CONCEALABILITY[weapon.concealabillty]}</span>
           </p>
           <p className={c.availability}>

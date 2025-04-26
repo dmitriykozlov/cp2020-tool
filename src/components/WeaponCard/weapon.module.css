@@ -2,6 +2,7 @@
   max-width: 25rem;
   border: 1px solid #ddd;
   padding: 0.5rem;
+  container-type: inline-size;
 }
 
 .weaponTypeHeader {
@@ -11,14 +12,57 @@
 .stats {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+  grid-template-areas:
+    "type accuracy dmg"
+    "ammo shots rof"
+    "range rel rel"
+    "conc conc conc"
+    "avail avail avail";
 }
 
-.availability {
-  grid-column: 1 / span 3;
+.stats p {
+  /*border: 1px solid #0056b3;*/
+  padding: 0.2rem;
+}
+
+.type {
+  grid-area: type;
+}
+
+.accuracy {
+  grid-area: accuracy;
+}
+
+.dmg {
+  grid-area: dmg;
+}
+
+.ammo {
+  grid-area: ammo;
+}
+
+.shots {
+  grid-area: shots;
+}
+
+.rof {
+  grid-area: rof;
+}
+
+.range {
+  grid-area: range;
 }
 
 .reliability {
-  grid-column: span 2;
+  grid-area: rel;
+}
+
+.conceal {
+  grid-area: conc;
+}
+
+.availability {
+  grid-area: avail;
 }
 
 .weaponCode {
@@ -32,5 +76,19 @@
 }
 
 @container (width<20rem) {
-
+  .stats {
+    /*background-color: #f32;*/
+    grid-template-columns: auto auto auto;
+    grid-template-areas:
+      "type type type"
+      "dmg ammo shots"
+      "rof range accuracy"
+      "rel rel rel"
+      "conc conc conc"
+      "avail avail avail";
+    /*"ammo shots rof"*/
+    /*"range rel rel"*/
+    /*"conc conc conc"*/
+    /*"avail avail avail"*/
+  }
 }

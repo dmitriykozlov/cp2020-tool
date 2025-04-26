@@ -1,5 +1,5 @@
 import React from "react";
-import { attackCalculator } from "@repo";
+import { attackCalculator } from "@repo/main";
 import { CommonProps } from "@/routes/calculator/components/SettingsComponents/common.ts";
 import styles from "./settings.module.css";
 

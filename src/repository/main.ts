@@ -2,7 +2,7 @@ import { Character } from "../domain/character/Character.ts";
 import { ROLES } from "../domain/rules/Roles.ts";
 import { injectStores } from "@mobx-devtools/tools";
 import { StatModifier } from "../domain/modifiers/StatModifier.ts";
-import { PseudoDice } from "./PseudoDice.ts";
+import { PseudoDice } from "./random/PseudoDice.ts";
 import { AttackCalculator } from "../domain/calculator/AttackCalculator.ts";
 
 export const character = new Character({

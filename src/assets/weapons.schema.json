@@ -1,0 +1,117 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Cyberpunk2020Weapon",
+  "description": "A schema representing a weapon from Cyberpunk 2020.",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string",
+        "description": "Weapon's full name."
+      },
+      "group": {
+        "type": "string",
+        "enum": [
+          "Light autopistols",
+          "Medium autopistols",
+          "Heavy autopistols",
+          "Very heavy autopistols",
+          "Light SMG",
+          "Medium SMG",
+          "Heavy SMG",
+          "Assault rifles",
+          "Shotguns",
+          "Heavy weapons"
+        ],
+        "description": "Category or group of the weapon (e.g., Light Autopistols, Heavy SMG, etc.)."
+      },
+      "type": {
+        "type": "string",
+        "enum": [
+          "P",
+          "SMG",
+          "RIF",
+          "SHT",
+          "HVY"
+        ],
+        "description": "Weapon type code (e.g., P = Pistol, SMG, RIF = Rifle, etc.)."
+      },
+      "wa": {
+        "type": "integer",
+        "description": "Weapon Accuracy modifier."
+      },
+      "con": {
+        "type": "string",
+        "enum": [
+          "P",
+          "J",
+          "L",
+          "N"
+        ],
+        "description": "Concealability rating (P = Pocket, J = Jacket, L = Long Coat, N = Not concealable)."
+      },
+      "avail": {
+        "type": "string",
+        "enum": [
+          "E",
+          "C",
+          "P",
+          "R"
+        ],
+        "description": "Availability rating (E = Excellent, C = Common, R = Rare, P = Poor)."
+      },
+      "dmg": {
+        "type": "string",
+        "description": "Damage dice rolled for the weapon."
+      },
+      "ammo": {
+        "type": "string",
+        "description": "Ammunition type or caliber."
+      },
+      "shots": {
+        "type": [
+          "integer",
+          "string"
+        ],
+        "description": "Number of shots available. Might be 'NA' for melee weapons."
+      },
+      "rof": {
+        "type": "integer",
+        "description": "Rate of fire (number of shots per round)."
+      },
+      "rel": {
+        "type": "string",
+        "enum": [
+          "VR",
+          "ST",
+          "UR"
+        ],
+        "description": "Reliability rating (VR = Very Reliable, ST = Standard, UR = Unreliable)."
+      },
+      "range": {
+        "type": "integer",
+        "description": "Effective weapon range (meters)."
+      },
+      "cost": {
+        "type": "number",
+        "description": "Weapon cost in eurobucks."
+      }
+    }
+  },
+  "required": [
+    "name",
+    "group",
+    "type",
+    "wa",
+    "con",
+    "avail",
+    "Damage",
+    "ammo",
+    "shots",
+    "rof",
+    "rel",
+    "range",
+    "cost"
+  ]
+}
