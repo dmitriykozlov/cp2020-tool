@@ -45,7 +45,7 @@ const modeComponents = {
 type Mode = keyof typeof modeComponents;
 
 const Calculator: React.FC = () => {
-  const [weapon, setWeapon] = useState(weapons[1]);
+  const [weapon, setWeapon] = useState(weapons[12]);
   const [distance, setDistance] = useState("20");
   const [skillValue, setSkillValue] = useState("14");
   const [fireMode, setFireMode] = useState<Mode>("single");

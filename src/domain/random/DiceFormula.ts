@@ -1,4 +1,4 @@
-import { RandomDice } from "./Dice.ts";
+import { Dice } from "./Dice.ts";
 import { FormulaRollResult } from "./RollResult.ts";
 
 const formulaRegex = /^(?:(\d+)D(\d+))?([+-/])?(\d+)?$/;
@@ -78,7 +78,7 @@ export class DiceFormula {
     }
   }
 
-  roll(random: RandomDice): FormulaRollResult {
+  roll(random: Dice): FormulaRollResult {
     const rollResult = random.roll(this.dieSides, this.amount);
     return FormulaRollResult.fromRollResult(this, rollResult);
   }

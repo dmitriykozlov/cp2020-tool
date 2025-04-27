@@ -1,7 +1,7 @@
-import { RandomDice } from "@domain/random/Dice.ts";
+import { Dice } from "@domain/random/Dice.ts";
 import { RollResult } from "@domain/random/RollResult.ts";
 
-export class PseudoDice implements RandomDice {
+export class PseudoRandomDice implements Dice {
   rollExploding(sides: number, limit: number = 1): RollResult {
     const rolls = this.rollRecursive(sides, limit);
     return new RollResult(rolls);

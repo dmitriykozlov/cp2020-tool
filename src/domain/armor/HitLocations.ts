@@ -1,4 +1,4 @@
-import { RandomDice } from "../random/Dice.ts";
+import { Dice } from "../random/Dice.ts";
 
 export const HIT_LOCATIONS = [
   "head",
@@ -29,7 +29,7 @@ export const HIT_TABLE: Record<HitLocation, [number, number]> = {
   left_leg: [9, 10],
 } as const;
 
-export function rollHitLocation(randomDice: RandomDice): HitLocation {
+export function rollHitLocation(randomDice: Dice): HitLocation {
   const roll = randomDice.roll(10, 1);
   for (const key in HIT_TABLE) {
     const [min, max] = HIT_TABLE[key as HitLocation];

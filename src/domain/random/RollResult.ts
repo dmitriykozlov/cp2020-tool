@@ -16,10 +16,6 @@ export class RollResult {
     return this.values.length === 1 && this.values[0] === 1;
   }
 
-  get isCriticalSuccess(): boolean {
-    return this.values[0] === 20;
-  }
-
   protected get valuesSum(): number {
     return this.values.reduce((sum, val) => sum + val, 0);
   }

@@ -1,4 +1,4 @@
-import { RandomDice } from "../random/Dice.ts";
+import { Dice } from "../random/Dice.ts";
 import {
   HIT_LOCATION_INDEX,
   HitLocation,
@@ -45,10 +45,10 @@ function insideMinMax(min: number, value: number, max: number): number {
 }
 
 export class AttackCalculator {
-  randomDice: RandomDice;
+  dice: Dice;
 
-  constructor(randomDice: RandomDice) {
-    this.randomDice = randomDice;
+  constructor(dice: Dice) {
+    this.dice = dice;
   }
 
   computeSingleShot(
@@ -74,7 +74,7 @@ export class AttackCalculator {
 
     let hits: Hit[] = [];
     if (!attack.isCriticalFailure && attack.result >= RANGES[range]) {
-      const hitsAmount = this.randomDice.roll(3, 1);
+      const hitsAmount = this.dice.roll(3, 1);
       hits = this.computeSeveralHits(hitsAmount.result, weapon);
     }
 
@@ -121,13 +121,13 @@ export class AttackCalculator {
   }
 
   private computeAttack(...modifiers: number[]): RollResult {
-    return this.randomDice.rollExploding(10).applyModifiers(...modifiers);
+    return this.dice.rollExploding(10).applyModifiers(...modifiers);
   }
 
   private computeHit(weapon: Weapon): Hit {
     return {
-      damage: weapon.damage.roll(this.randomDice),
-      location: rollHitLocation(this.randomDice),
+      damage: weapon.damage.roll(this.dice),
+      location: rollHitLocation(this.dice),
     };
   }
 

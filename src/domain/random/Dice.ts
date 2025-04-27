@@ -1,6 +1,6 @@
 import { RollResult } from "./RollResult.ts";
 
-export interface RandomDice {
+export interface Dice {
   roll(sides: number, amount: number): RollResult;
 
   /**
