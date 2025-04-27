@@ -17,10 +17,6 @@ export const CONCEALABILITY = {
   N: "Can't be Hidden",
 };
 
-export const GROUPS = {
-
-};
-
 export type Concealabillty = keyof typeof CONCEALABILITY;
 
 export const AVAILABILITY = {
@@ -39,3 +35,12 @@ export const RELIABILITY = {
 };
 
 export type Reliability = keyof typeof RELIABILITY;
+
+/**
+ * Jams on roll lower than in the table for certain reliability
+ */
+export const RELIABILITY_TABLE: Record<Reliability, number> = {
+  VR: 3,
+  ST: 5,
+  UR: 8,
+};

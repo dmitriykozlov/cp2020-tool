@@ -4,6 +4,7 @@ import { injectStores } from "@mobx-devtools/tools";
 import { StatModifier } from "../domain/modifiers/StatModifier.ts";
 import { PseudoRandomDice } from "./random/PseudoRandomDice.ts";
 import { AttackCalculator } from "../domain/calculator/AttackCalculator.ts";
+import { MockDice } from "@domain/calculator/__tests__/MockDice.ts";
 
 export const character = new Character({
   skills: {
@@ -108,4 +109,6 @@ injectStores({ character });
 
 export const randomDice = new PseudoRandomDice();
 
-export const attackCalculator = new AttackCalculator(randomDice);
+export const mockDice = new MockDice();
+
+export const attackCalculator = new AttackCalculator(mockDice);

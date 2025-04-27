@@ -119,9 +119,13 @@ const Calculator: React.FC = () => {
             {
               value: "burst",
               label: "3 round burst",
-              disabled: weapon.ROF < 3,
+              disabled: !weapon.isAutomatic,
             },
-            { value: "auto", label: "Full auto", disabled: weapon.ROF < 4 },
+            {
+              value: "auto",
+              label: "Full auto",
+              disabled: !weapon.isAutomatic,
+            },
           ]}
           onChange={(value) => {
             setFireMode(value as Mode);

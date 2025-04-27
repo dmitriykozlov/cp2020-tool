@@ -6,6 +6,11 @@ import {
 } from "../armor/HitLocations.ts";
 import { Weapon } from "../weapons/Weapon.ts";
 import { FormulaRollResult, RollResult } from "@domain/random/RollResult.ts";
+import {
+  computeCombatFumble,
+  Fumble,
+  jammingFumble,
+} from "@domain/rules/weapon/ComputeCombatFumble.ts";
 
 export const RANGES = {
   POINT_BLANK: 10,
@@ -23,13 +28,14 @@ const APPLY_BURST_BONUS = new Set<Range>(["CLOSE", "MEDIUM", "POINT_BLANK"]);
 
 const APPLY_FULL_AUTO_BONUS = new Set<Range>(["CLOSE", "POINT_BLANK"]);
 
-type Hit = {
+export type Hit = {
   location: HitLocation;
   damage: FormulaRollResult;
 };
 
 export type AttackResult = {
   attackRoll: RollResult;
+  fumble?: Fumble;
   hits: Hit[];
 };
 
@@ -56,30 +62,51 @@ export class AttackCalculator {
     skillValue: number,
     range: Range,
   ): AttackResult {
-    const attack = this.computeAttack(skillValue, weapon.accuracy);
+    const attackRoll = this.computeAttack(skillValue, weapon.accuracy);
+
+    if (attackRoll.isCriticalFailure) {
+      return {
+        attackRoll,
+        hits: [],
+        fumble: computeCombatFumble(weapon, this.dice),
+      };
+    }
+
     const hits: Hit[] = [];
-    if (!attack.isCriticalFailure && attack.result >= RANGES[range]) {
+    if (!attackRoll.isCriticalFailure && attackRoll.result >= RANGES[range]) {
       hits.push(this.computeHit(weapon));
     }
 
     return {
-      attackRoll: attack,
+      attackRoll,
       hits,
     };
   }
 
   computeBurst(weapon: Weapon, skillValue: number, range: Range): AttackResult {
     const burstBonus = APPLY_BURST_BONUS.has(range) ? BURST_BONUS : 0;
-    const attack = this.computeAttack(skillValue, weapon.accuracy, burstBonus);
+    const attackRoll = this.computeAttack(
+      skillValue,
+      weapon.accuracy,
+      burstBonus,
+    );
+
+    if (attackRoll.isCriticalFailure) {
+      return {
+        attackRoll,
+        hits: [],
+        fumble: jammingFumble(weapon, this.dice),
+      };
+    }
 
     let hits: Hit[] = [];
-    if (!attack.isCriticalFailure && attack.result >= RANGES[range]) {
-      const hitsAmount = this.dice.roll(3, 1);
-      hits = this.computeSeveralHits(hitsAmount.result, weapon);
+    if (!attackRoll.isCriticalFailure && attackRoll.result >= RANGES[range]) {
+      const numberOfHits = this.dice.roll(3, 1);
+      hits = this.computeSeveralHits(numberOfHits.result, weapon);
     }
 
     return {
-      attackRoll: attack,
+      attackRoll,
       hits,
     };
   }
@@ -101,23 +128,42 @@ export class AttackCalculator {
       : -attackBonusValue;
 
     for (let i = 0; i < numberOfTargets; i++) {
-      const attack = this.computeAttack(
+      const attackRoll = this.computeAttack(
         skillValue,
         weapon.accuracy,
         attackBonus,
       );
+
+      if (attackRoll.isCriticalFailure) {
+        targets.push({
+          attackRoll,
+          hits: [],
+          fumble: jammingFumble(weapon, this.dice),
+        });
+      }
+
       const numberOfHits = insideMinMax(
         0,
-        attack.result - difficulty,
+        attackRoll.result - difficulty,
         roundsPerTarget,
       );
+
       targets.push({
-        attackRoll: attack,
+        attackRoll: attackRoll,
         hits: this.computeSeveralHits(numberOfHits, weapon),
       });
     }
 
     return targets;
+  }
+
+  public computeSeveralHits(numberOfHits: number, weapon: Weapon): Hit[] {
+    return Array.from(
+      { length: numberOfHits },
+      (): Hit => this.computeHit(weapon),
+    ).sort(
+      (a, b) => HIT_LOCATION_INDEX[a.location] - HIT_LOCATION_INDEX[b.location],
+    );
   }
 
   private computeAttack(...modifiers: number[]): RollResult {
@@ -129,14 +175,5 @@ export class AttackCalculator {
       damage: weapon.damage.roll(this.dice),
       location: rollHitLocation(this.dice),
     };
-  }
-
-  private computeSeveralHits(numberOfHits: number, weapon: Weapon): Hit[] {
-    return Array.from(
-      { length: numberOfHits },
-      (): Hit => this.computeHit(weapon),
-    ).sort(
-      (a, b) => HIT_LOCATION_INDEX[a.location] - HIT_LOCATION_INDEX[b.location],
-    );
   }
 }

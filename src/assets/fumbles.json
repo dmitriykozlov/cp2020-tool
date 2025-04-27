@@ -1,0 +1,103 @@
+{
+  "REFLEX_COMBAT": {
+    "description": "REFLEX (Combat)",
+    "results": [
+      {
+        "roll": "1-4",
+        "effect": "No fumble. You just screw up."
+      },
+      {
+        "roll": "5",
+        "effect": "You drop your weapon."
+      },
+      {
+        "roll": "6",
+        "effect": "Weapon discharges (make reliability roll for non-auto weapon) or strikes something harmless.",
+        "makeReliabilityRoll": true
+      },
+      {
+        "roll": "7",
+        "effect": "Weapon jams (make reliability roll for non-auto weapon) or imbeds itself in the ground for one turn.",
+        "makeReliabilityRoll": true
+      },
+      {
+        "roll": "8",
+        "effect": "You manage to wound yourself. Roll for location.",
+        "rollForLocation": true
+      },
+      {
+        "roll": "9-10",
+        "effect": "You manage to wound a member of your own party.",
+        "rollForLocation": true
+      }
+    ]
+  },
+  "REFLEX_ATHLETICS": {
+    "description": "REFLEX (Athletics)",
+    "results": [
+      {
+        "roll": "1-4",
+        "effect": "No fumble. You just mess up and make an idiot of yourself."
+      },
+      {
+        "roll": "5-7",
+        "effect": "You fail miserably. Take 1 point in minor damage (sprain, fall, stumble), plus make a Save vs. Stun."
+      },
+      {
+        "roll": "8-10",
+        "effect": "You fail abysmally. If a physical action, take 1D6 in damage from falling or strained muscles. Also make a roll vs Stun at -1."
+      }
+    ]
+  },
+  "TECH": {
+    "description": "TECH (Repair or create)",
+    "results": [
+      {
+        "roll": "1-4",
+        "effect": "No fumble. You just can't get it together."
+      },
+      {
+        "roll": "5-7",
+        "effect": "You not only fail, you make it worse! You drop the tools you're working with, or you lose your grip and damage the thing you're working with even more. Raise the Difficulty by 5 points and try again."
+      },
+      {
+        "roll": "8-10",
+        "effect": "You damaged the device or creation beyond repair. Buy a new one."
+      }
+    ]
+  },
+  "EMP": {
+    "description": "EMP (Convince, Fast talk, Seduce)",
+    "results": [
+      {
+        "roll": "1-4",
+        "effect": "No fumble. They just won't buy it."
+      },
+      {
+        "roll": "5-6",
+        "effect": "So much for your people skills. You don't convince them; you leave them totally cold (-4 to your next EMP die roll)."
+      },
+      {
+        "roll": "7-10",
+        "effect": "You not only didn't convince them, but now they're violently opposed to anything you want to do. roll 1D10. On a 1-4, they attempt to do you physical harm."
+      }
+    ]
+  },
+  "INT": {
+    "description": "INT (Figure out, Notice, Catch a clue)",
+    "results": [
+      {
+        "roll": "1-4",
+        "effect": "No fumble; you just don't know how to do it. You don't know what's going on. You carry on, oblivious to higher concerns."
+      },
+      {
+        "roll": "5-7",
+        "effect": "You don't know anything about what's going on and you haven't a clue about how to do anything about it. Make a Convince check at -2 to see if anyone else notices how dumb you are."
+      },
+      {
+        "roll": "8-10",
+        "effect": "You not only don't know what's going on or anything about the subject, but everyone knows how ignorant you are."
+      }
+    ]
+  }
+}

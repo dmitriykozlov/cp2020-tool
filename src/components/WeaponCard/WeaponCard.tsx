@@ -6,7 +6,7 @@ import {
   CONCEALABILITY,
   RELIABILITY,
   WEAPON_TYPES,
-} from "@domain/weapons/constants.ts";
+} from "@domain/rules/weapon/constants.ts";
 
 interface WeaponCardProps {
   weapon: Weapon;

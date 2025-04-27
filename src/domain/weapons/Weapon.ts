@@ -7,7 +7,7 @@ import {
   Reliability,
   WEAPON_TYPES,
   WeaponType,
-} from "./constants.ts";
+} from "../rules/weapon/constants.ts";
 import { DiceFormula } from "../random/DiceFormula.ts";
 import { Valuable } from "../Valuable.ts";
 import { Range } from "../calculator/AttackCalculator.ts";
@@ -103,6 +103,10 @@ export class Weapon implements Valuable {
 
   get ROF(): number {
     return this.rateOfFire;
+  }
+
+  get isAutomatic(): boolean {
+    return this.rateOfFire >= 3;
   }
 
   static fromCode(code: string): Weapon {

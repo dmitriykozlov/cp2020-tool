@@ -8,17 +8,17 @@ export class MockDice implements Dice {
     this.queue = result;
   }
 
-  roll(sides: number, amount: number): RollResult {
+  roll(_: number, amount: number): RollResult {
     return (
       this.queue.shift() ??
-      new RollResult(Array.from({ length: amount }, () => sides))
+      new RollResult(Array.from({ length: amount }, () => 1))
     );
   }
 
-  rollExploding(sides: number, limit: number = 1): RollResult {
+  rollExploding(_: number, limit: number = 1): RollResult {
     return (
       this.queue.shift() ??
-      new RollResult(Array.from({ length: limit + 1 }, () => sides))
+      new RollResult(Array.from({ length: limit + 1 }, () => 1))
     );
   }
 }

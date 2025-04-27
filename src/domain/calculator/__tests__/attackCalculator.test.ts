@@ -29,6 +29,35 @@ describe("Single shot mode", () => {
     expect(hit.damage.result).toBe(2 + 6 + 5);
     expect(hit.location).toBe("left_arm");
   });
+  it("critical failure injury fumble", () => {
+    mockDice.setRolls(
+      new RollResult([1]), // Attack roll critical failure
+      new RollResult([8]), // Fumble: you injure yourself
+      new RollResult([3, 6, 5]), // sternmyer damage
+      new RollResult([5]), // location hit 6
+    );
+
+    const result = attackCalculator.computeSingleShot(w1, 12, "MEDIUM");
+
+    expect(result.fumble).toBeDefined();
+    expect(result.fumble?.description).toBe("You manage to wound yourself.");
+    expect(result.fumble?.hits?.length).toBe(1);
+    expect(result.fumble?.hits?.[0]?.damage?.result).toBe(3 + 6 + 5);
+    expect(result.fumble?.hits?.[0]?.location).toBe("right_arm");
+  });
+  it("critical failure jammed weapon", () => {
+    mockDice.setRolls(
+      new RollResult([1]), // Attack roll critical failure
+      new RollResult([7]), // Fumble: jammed weapon
+      new RollResult([3]), // reliability roll for VR jamms on 3 or less
+      new RollResult([5]), // Jamms for 5 turns
+    );
+
+    const result = attackCalculator.computeSingleShot(w1, 12, "MEDIUM");
+
+    expect(result.fumble).toBeDefined();
+    expect(result.fumble?.description).toBe("Weapon jams for 5 turns.");
+  });
 });
 
 describe("Burst mode", () => {
@@ -37,20 +66,20 @@ describe("Burst mode", () => {
     mockDice.setRolls(
       new RollResult([9]), // Attack roll (9 + skill will exceed MEDIUM difficulty of 20)
       new RollResult([2]), // 2 hits
-      new RollResult([3, 4, 5]), // Damage for hit 1
+      new RollResult([3, 4]), // Damage for hit 1
       new RollResult([1]), // Location for hit 1
-      new RollResult([2, 3, 4]), // Damage for hit 2
+      new RollResult([2, 3]), // Damage for hit 2
       new RollResult([4]), // Location for hit 2
     );
 
-    const result = attackCalculator.computeBurst(w1, 10, "MEDIUM");
+    const result = attackCalculator.computeBurst(w2, 10, "MEDIUM");
 
     // With burst at MEDIUM range, there's a +3 bonus
-    expect(result.attackRoll.result).toBe(9 + 10 + 3);
+    expect(result.attackRoll.result).toBe(9 + 10 + 3 + 1);
     expect(result.hits.length).toBe(2);
-    expect(result.hits[0].damage.result).toBe(3 + 4 + 5);
+    expect(result.hits[0].damage.result).toBe(3 + 4 + 3);
     expect(result.hits[0].location).toBe("head");
-    expect(result.hits[1].damage.result).toBe(2 + 3 + 4);
+    expect(result.hits[1].damage.result).toBe(2 + 3 + 3);
     expect(result.hits[1].location).toBe("torso");
   });
 
@@ -79,27 +108,29 @@ describe("Burst mode", () => {
     expect(result.hits[2].location).toBe("right_arm");
   });
 
-  it("critical failure on burst attack", () => {
-    mockDice.setRolls(
-      new RollResult([1]), // Critical failure
-    );
-
-    const result = attackCalculator.computeBurst(w1, 10, "MEDIUM");
-
-    expect(result.attackRoll.isCriticalFailure).toBe(true);
-    expect(result.hits.length).toBe(0); // No hits on critical failure
-  });
-
   it("failed burst attack (roll too low)", () => {
     mockDice.setRolls(
       new RollResult([5]), // Low roll that won't meet difficulty even with modifiers
     );
 
-    const result = attackCalculator.computeBurst(w1, 10, "MEDIUM");
+    const result = attackCalculator.computeBurst(w2, 10, "MEDIUM");
 
     // 5 (roll) + 10 (skill) + 3 (burst bonus) = 18, which is less than MEDIUM difficulty of 20
-    expect(result.attackRoll.result).toBe(5 + 10 + 3);
+    expect(result.attackRoll.result).toBe(5 + 10 + 3 + 1);
     expect(result.hits.length).toBe(0); // No hits when attack fails
+  });
+
+  it("critical failure jamm fumble", () => {
+    mockDice.setRolls(
+      new RollResult([1]), // attack roll nat 1, fumble
+      new RollResult([5]), // reliability roll for st, jams on 5 or lower
+      new RollResult([3]), // jams for 3 turns
+    );
+
+    const result = attackCalculator.computeBurst(w2, 10, "MEDIUM");
+
+    expect(result.fumble).toBeDefined();
+    expect(result.fumble?.description).toBe("Weapon jams for 3 turns.");
   });
 });
 
@@ -126,8 +157,8 @@ describe("Full auto mode", () => {
     expect(targetResult.hits.length).toBe(6); // This would actually be 5 in a real scenario
     expect(targetResult.hits[0].damage.result).toBe(6 + 6 + 3); // +3 from weapon formula
     expect(targetResult.hits[0].location).toBe("head");
-    expect(targetResult.hits[1].damage.result).toBe(5 + 5 + 3); // +3 from weapon formula
-    expect(targetResult.hits[1].location).toBe("torso");
+    expect(targetResult.hits[5].damage.result).toBe(5 + 5 + 3); // +3 from weapon formula
+    expect(targetResult.hits[5].location).toBe("torso");
   });
 
   it("failed full auto at LONG range with multiple targets", () => {
