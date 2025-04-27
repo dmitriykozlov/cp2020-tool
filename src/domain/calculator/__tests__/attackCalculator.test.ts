@@ -16,7 +16,7 @@ const w2 = Weapon.fromCode("H&K MPK-11|SMG|1|J|C|2D6+3|10mm|35|32|ST|150|1");
 
 describe("Single shot mode", () => {
   it("arbitrary single shot", () => {
-    mockDice.setNextRoll(
+    mockDice.setRolls(
       new RollResult([8]),
       new RollResult([2, 6, 5]),
       new RollResult([6]),
@@ -34,7 +34,7 @@ describe("Single shot mode", () => {
 describe("Burst mode", () => {
   it("successful burst at MEDIUM range", () => {
     // Attack roll, number of hits roll, damage rolls, hit location rolls
-    mockDice.setNextRoll(
+    mockDice.setRolls(
       new RollResult([9]), // Attack roll (9 + skill will exceed MEDIUM difficulty of 20)
       new RollResult([2]), // 2 hits
       new RollResult([3, 4, 5]), // Damage for hit 1
@@ -55,7 +55,7 @@ describe("Burst mode", () => {
   });
 
   it("successful burst at LONG range (no burst bonus)", () => {
-    mockDice.setNextRoll(
+    mockDice.setRolls(
       new RollResult([9]), // Attack roll (10 + skill will exceed LONG difficulty of 25)
       new RollResult([3]), // 3 hits
       new RollResult([6, 6, 6]), // Damage for hit 1
@@ -80,7 +80,7 @@ describe("Burst mode", () => {
   });
 
   it("critical failure on burst attack", () => {
-    mockDice.setNextRoll(
+    mockDice.setRolls(
       new RollResult([1]), // Critical failure
     );
 
@@ -91,7 +91,7 @@ describe("Burst mode", () => {
   });
 
   it("failed burst attack (roll too low)", () => {
-    mockDice.setNextRoll(
+    mockDice.setRolls(
       new RollResult([5]), // Low roll that won't meet difficulty even with modifiers
     );
 
@@ -105,7 +105,7 @@ describe("Burst mode", () => {
 
 describe("Full auto mode", () => {
   it("successful full auto at CLOSE range with single target", () => {
-    mockDice.setNextRoll(
+    mockDice.setRolls(
       new RollResult([7]), // Attack roll
       new RollResult([6, 6]), // Damage for hit 1
       new RollResult([1]), // Location for hit 1
@@ -131,7 +131,7 @@ describe("Full auto mode", () => {
   });
 
   it("failed full auto at LONG range with multiple targets", () => {
-    mockDice.setNextRoll(
+    mockDice.setRolls(
       new RollResult([9]), // Attack roll for target 1
       new RollResult([8]), // Attack roll for target 2
     );

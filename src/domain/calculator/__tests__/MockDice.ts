@@ -4,8 +4,8 @@ import { RollResult } from "@domain/random/RollResult.ts";
 export class MockDice implements Dice {
   queue: RollResult[] = [];
 
-  setNextRoll(...result: RollResult[]) {
-    this.queue.push(...result);
+  setRolls(...result: RollResult[]) {
+    this.queue = result;
   }
 
   roll(sides: number, amount: number): RollResult {
