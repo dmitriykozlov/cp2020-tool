@@ -11,11 +11,11 @@ export type Fumble = {
 };
 
 export function computeCombatFumble(weapon: Weapon, dice: Dice): Fumble {
-  const fumbleRoll = dice.roll(10, 1);
-
   if (weapon.isAutomatic) {
     return jammingFumble(weapon, dice);
   }
+
+  const fumbleRoll = dice.roll(10, 1);
 
   switch (fumbleRoll.result) {
     case 5:
@@ -64,7 +64,7 @@ export function jammingFumble(weapon: Weapon, dice: Dice) {
       reliabilityRoll,
     };
   } else {
-    const turnsToFix = dice.rollExploding(6, 1);
+    const turnsToFix = dice.roll(6, 1);
     return {
       description: `Weapon jams for ${turnsToFix.result} turns.`,
       reliabilityRoll,

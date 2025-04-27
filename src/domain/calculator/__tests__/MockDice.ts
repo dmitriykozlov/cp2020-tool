@@ -18,7 +18,7 @@ export class MockDice implements Dice {
   rollExploding(_: number, limit: number = 1): RollResult {
     return (
       this.queue.shift() ??
-      new RollResult(Array.from({ length: limit + 1 }, () => 1))
+      new RollResult(Array.from({ length: limit }, () => 1))
     );
   }
 }

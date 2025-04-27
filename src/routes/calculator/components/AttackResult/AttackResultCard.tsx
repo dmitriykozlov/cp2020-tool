@@ -46,7 +46,11 @@ export const AttackResultCard: React.FC<TargetDamageProps> = observer(
             </span>
           </span>
         </h3>
-        <h4 className={styles.hitsHeader}>Hits: {attack.hits.length}</h4>
+        {attack.fumble ? (
+          <h4 className={styles.hitsHeader}>{attack.fumble.description}</h4>
+        ) : (
+          <h4 className={styles.hitsHeader}>Hits: {attack.hits.length}</h4>
+        )}
         {attack.hits.length > 0 && (
           <div className={styles.tables}>
             <ArmorTable

@@ -140,18 +140,18 @@ export class AttackCalculator {
           hits: [],
           fumble: jammingFumble(weapon, this.dice),
         });
+      } else {
+        const numberOfHits = insideMinMax(
+          0,
+          attackRoll.result - difficulty,
+          roundsPerTarget,
+        );
+
+        targets.push({
+          attackRoll: attackRoll,
+          hits: this.computeSeveralHits(numberOfHits, weapon),
+        });
       }
-
-      const numberOfHits = insideMinMax(
-        0,
-        attackRoll.result - difficulty,
-        roundsPerTarget,
-      );
-
-      targets.push({
-        attackRoll: attackRoll,
-        hits: this.computeSeveralHits(numberOfHits, weapon),
-      });
     }
 
     return targets;
