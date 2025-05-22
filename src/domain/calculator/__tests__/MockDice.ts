@@ -1,7 +1,7 @@
 import { Dice } from "@domain/random/Dice.ts";
 import { RollResult } from "@domain/random/RollResult.ts";
 
-export class MockDice implements Dice {
+export class MockDice extends Dice {
   queue: RollResult[] = [];
 
   setRolls(...result: RollResult[]) {

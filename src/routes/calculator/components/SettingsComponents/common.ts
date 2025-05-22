@@ -1,9 +1,9 @@
-import { AttackResult, Range } from "@domain/calculator/AttackCalculator.ts";
+import { AttackResult } from "@domain/calculator/AttackCalculator.ts";
 import { Weapon } from "@domain/weapons/Weapon.ts";
+import { CalculatorStore } from "@/routes/calculator/state/CalculatorStore.ts";
 
 export type CommonProps = {
-  range: Range | null;
-  skillValue: number;
+  store: CalculatorStore;
   weapon: Weapon;
   onCalculate: (result: AttackResult[]) => void;
 };

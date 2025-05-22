@@ -5,7 +5,7 @@ import { AttackResult } from "@domain/calculator/AttackCalculator.ts";
 import {
   calculateDamage,
   TakenDamageCalculations,
-} from "@domain/calculator/DamageCalculator";
+} from "@domain/calculator/DamageCalculator.ts";
 
 export type ArmorType = "hard" | "soft";
 

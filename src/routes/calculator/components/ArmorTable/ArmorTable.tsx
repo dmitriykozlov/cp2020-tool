@@ -7,7 +7,7 @@ import { CoverSelector } from "@/components/CoverSelect/CoverSelector.tsx";
 import { Select } from "@/coreComponents/Select/Select.tsx";
 import { action } from "mobx";
 import { observer } from "mobx-react-lite";
-import { ArmorTableStore, ArmorType } from "../ArmorTableStore.ts";
+import { ArmorTableStore, ArmorType } from "../../state/ArmorTableStore.ts";
 import clsx from "clsx";
 
 type ArmorTableProps = {
@@ -134,11 +134,12 @@ export const ArmorTable: React.FC<ArmorTableProps> = observer(
                   <button
                     tabIndex={-1}
                     disabled={store.layers.length <= 1}
+                    className={c.removeButton}
                     onClick={() => {
                       store.removeRow(layerIndex);
                     }}
                   >
-                    x
+                    ✖️
                   </button>
                 </td>
               </tr>

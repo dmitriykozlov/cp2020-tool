@@ -3,13 +3,14 @@ import { attackCalculator } from "@repo/main";
 import { Input } from "@/coreComponents/Input/Input.tsx";
 import { CommonProps } from "@/routes/calculator/components/SettingsComponents/common.ts";
 import styles from "@/routes/calculator/components/SettingsComponents/settings.module.css";
+import { observer } from "mobx-react-lite";
 
-export const FullAuto: React.FC<CommonProps> = (p) => {
+export const FullAuto: React.FC<CommonProps> = observer((p) => {
   const [numOfTargets, setNumOfTargets] = useState("3");
   const numberOfTargets = Number(numOfTargets);
   const enabled = !(
-    !p.range ||
-    Number.isNaN(p.skillValue) ||
+    !p.store.range ||
+    Number.isNaN(p.store.skillValue) ||
     Number.isNaN(numberOfTargets)
   );
   return (
@@ -18,6 +19,7 @@ export const FullAuto: React.FC<CommonProps> = (p) => {
         <Input
           label="# of targets "
           value={numOfTargets}
+          className={styles.fullAutoInput}
           type="number"
           onChange={(e) => {
             setNumOfTargets(e.target.value);
@@ -31,9 +33,10 @@ export const FullAuto: React.FC<CommonProps> = (p) => {
           p.onCalculate(
             attackCalculator.computeFullAuto(
               p.weapon,
-              p.skillValue,
+              p.store.skillValue,
               numberOfTargets,
-              p.range!,
+              p.store.range!,
+              p.store.activeModifiers.map((m) => m.value),
             ),
           );
         }}
@@ -42,4 +45,4 @@ export const FullAuto: React.FC<CommonProps> = (p) => {
       </button>
     </>
   );
-};
+});

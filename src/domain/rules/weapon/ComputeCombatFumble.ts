@@ -60,7 +60,7 @@ export function jammingFumble(weapon: Weapon, dice: Dice) {
   const reliabilityRoll = dice.roll(10, 1);
   if (reliabilityRoll.result > RELIABILITY_TABLE[weapon.reliability]) {
     return {
-      description: "Weapon imbeds itself in the ground for one turn.",
+      description: "There is a misfire. You skip the rest of the turn.",
       reliabilityRoll,
     };
   } else {

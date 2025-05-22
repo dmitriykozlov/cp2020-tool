@@ -29,6 +29,13 @@ td.removeButtonCell {
     border: none;
 }
 
+.removeButton {
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+}
+
 .addButton {
     color: white;
     border: none;
