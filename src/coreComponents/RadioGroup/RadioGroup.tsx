@@ -23,31 +23,27 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
 }) => {
   const id = useId();
   return (
-    <div className={clsx(c.container, className)}>
-      {label && <span className={c.label}>{label}</span>}
-      <div className={c.options}>
-        {options.map((option) => (
-          <React.Fragment key={option.value}>
-            <input
-              type="radio"
-              name={id}
-              value={option.value}
-              checked={value === option.value}
-              id={id + option.value}
-              onChange={(e) => onChange?.(e.target.value)}
-              className={c.input}
-              disabled={option.disabled}
-            />
-            <label
-              key={option.value}
-              className={c.option}
-              htmlFor={id + option.value}
-            >
-              <span className={c.label}>{option.label}</span>
-            </label>
-          </React.Fragment>
-        ))}
-      </div>
-    </div>
+    <p className={clsx(c.container, className)}>
+      {label}
+      {options.map((option) => (
+        <label
+          key={option.value}
+          className={c.option}
+          htmlFor={id + option.value}
+        >
+          <input
+            type="radio"
+            name={id}
+            value={option.value}
+            checked={value === option.value}
+            id={id + option.value}
+            onChange={(e) => onChange?.(e.target.value)}
+            className={c.input}
+            disabled={option.disabled}
+          />
+          <span className={c.label}>{option.label}</span>
+        </label>
+      ))}
+    </p>
   );
 };

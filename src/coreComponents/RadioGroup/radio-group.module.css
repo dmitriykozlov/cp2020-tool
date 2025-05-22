@@ -1,30 +1,4 @@
 
 .option {
-  flex: auto 1 0;
-  padding: .1rem .5rem;
-  cursor: pointer;
-  text-align: center;
-}
-
-.option:not(:last-child) {
-  border-right: solid 1px black;
-
-}
-
-.input:checked + .option {
-  background: #3c5dcf;
-  color: white;
-}
-
-.input {
-  display: none;
-}
-
-.options {
-  display: flex;
-  justify-content: stretch;
-  border: solid 1px black;
-  border-radius: .5rem;
-  background-clip: border-box;
-  overflow: clip;
+    margin-right: 1rem;
 }

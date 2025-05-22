@@ -2,10 +2,9 @@ import React from "react";
 import { attackCalculator } from "@repo/main";
 import { CommonProps } from "@/routes/calculator/components/SettingsComponents/common.ts";
 import styles from "./settings.module.css";
-import { observer } from "mobx-react-lite";
 
-export const SingleShot: React.FC<CommonProps> = observer((p) => {
-  const enabled = !(!p.store.range || Number.isNaN(p.store.skillValue));
+export const SingleShot: React.FC<CommonProps> = (p) => {
+  const enabled = !(!p.range || Number.isNaN(p.skillValue));
   return (
     <div>
       <button
@@ -15,9 +14,8 @@ export const SingleShot: React.FC<CommonProps> = observer((p) => {
           p.onCalculate([
             attackCalculator.computeSingleShot(
               p.weapon,
-              p.store.skillValue,
-              p.store.range!,
-              p.store.activeModifiers.map((m) => m.value),
+              p.skillValue,
+              p.range!,
             ),
           ]);
         }}
@@ -31,15 +29,13 @@ export const SingleShot: React.FC<CommonProps> = observer((p) => {
           p.onCalculate([
             attackCalculator.computeSingleShot(
               p.weapon,
-              p.store.skillValue,
-              p.store.range!,
-              p.store.activeModifiers.map((m) => m.value),
+              p.skillValue,
+              p.range!,
             ),
             attackCalculator.computeSingleShot(
               p.weapon,
-              p.store.skillValue,
-              p.store.range!,
-              p.store.activeModifiers.map((m) => m.value),
+              p.skillValue,
+              p.range!,
             ),
           ]);
         }}
@@ -48,4 +44,4 @@ export const SingleShot: React.FC<CommonProps> = observer((p) => {
       </button>
     </div>
   );
-});
+};

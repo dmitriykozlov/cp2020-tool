@@ -122,10 +122,3 @@
   flex-direction: column;
   justify-content: flex-end;
 }
-
-.missMessage {
-  display: flex;
-  align-items: center;
-  flex: 1 0 auto;
-  justify-content: center;
-}

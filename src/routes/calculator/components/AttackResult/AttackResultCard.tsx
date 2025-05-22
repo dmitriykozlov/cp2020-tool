@@ -3,7 +3,7 @@ import { AttackResult } from "@domain/calculator/AttackCalculator.ts";
 import styles from "./attackResult.module.css";
 import clsx from "clsx";
 import { ArmorTable } from "@/routes/calculator/components/ArmorTable";
-import { ArmorTableStore } from "@/routes/calculator/state/ArmorTableStore.ts";
+import { ArmorTableStore } from "@/routes/calculator/components/ArmorTableStore.ts";
 import { HIT_LOCATIONS_DISPLAY } from "@/routes/character/components/ArmorBlock/constants.ts";
 import { HIT_LOCATIONS, HitLocation } from "@domain/armor/HitLocations.ts";
 import { observer } from "mobx-react-lite";
@@ -16,12 +16,6 @@ type TargetDamageProps = {
 };
 
 const CRITICAL_DMG = 8;
-
-function getFail(attack: AttackResult): string | null {
-  if (attack.fumble) return attack.fumble.description;
-  if (attack.hits.length === 0) return "Attack missed";
-  return null;
-}
 
 export const AttackResultCard: React.FC<TargetDamageProps> = observer(
   ({ attack, name, className, ap }) => {
@@ -38,8 +32,6 @@ export const AttackResultCard: React.FC<TargetDamageProps> = observer(
 
     const damageCalculations = armorStore.totalSpAndTakenDamage(ap);
 
-    const failMessage = getFail(attack);
-
     return (
       <div className={clsx(styles.attackCard, className)}>
         <h3 className={styles.title}>
@@ -54,80 +46,72 @@ export const AttackResultCard: React.FC<TargetDamageProps> = observer(
             </span>
           </span>
         </h3>
-        {failMessage && (
-          <div className={styles.missMessage}>
-            <h3>{failMessage}</h3>
-          </div>
+        {attack.fumble ? (
+          <h4 className={styles.hitsHeader}>{attack.fumble.description}</h4>
+        ) : (
+          <h4 className={styles.hitsHeader}>Hits: {attack.hits.length}</h4>
         )}
         {attack.hits.length > 0 && (
           <div className={styles.tables}>
-            <div>
-              <h3 className={styles.hitsHeader}>Target's armor</h3>
-              <ArmorTable
-                store={armorStore}
-                affectedBodyParts={affectedBodyParts}
-              />
-            </div>
-
-            <div>
-              <h3 className={styles.hitsHeader}>Hits: {attack.hits.length}</h3>
-              <table className={styles.damageTable}>
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Location</th>
-                    <th>Dealt Dmg</th>
-                    <th>SP</th>
-                    <th>Taken Dmg</th>
-                  </tr>
-                  <tr className={styles.formulaRow}>
-                    <th></th>
-                    <th></th>
-                    <th className={styles.damageFormula}>{damageFormula}</th>
-                    <th>BTM: {armorStore.btm}</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {attack.hits.map((hit, index) => {
-                    const val = damageCalculations.hits[index];
-                    return (
-                      <tr key={index} className={styles.hitRow}>
-                        <td className={styles.indexCell}>{index + 1}</td>
-                        <td className={styles.locationCell}>
-                          {HIT_LOCATIONS_DISPLAY[hit.location]}
-                        </td>
-                        <td className={styles.damageCell}>
-                          {hit.damage.result}{" "}
-                          <span className={styles.damageValues}>
-                            ({hit.damage.values.join(", ")})
-                          </span>
-                        </td>
-                        <td
-                          className={clsx({
-                            [styles.highlight]:
-                              val.sp > 0 && val.armorPenetrated,
-                            [styles.dimm]: val.sp == 0,
-                          })}
-                        >
-                          {val.sp}
-                          {ap &&
-                            val.armorPenetrated &&
-                            `(${Math.floor(val.sp / 2)})`}
-                        </td>
-                        <td
-                          className={clsx({
-                            [styles.dimm]: val.dmg == 0,
-                          })}
-                        >
-                          {val.dmg}
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
+            <ArmorTable
+              store={armorStore}
+              affectedBodyParts={affectedBodyParts}
+            />
+            <table className={styles.damageTable}>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Location</th>
+                  <th>Dealt Dmg</th>
+                  <th>SP</th>
+                  <th>Taken Dmg</th>
+                </tr>
+                <tr className={styles.formulaRow}>
+                  <th></th>
+                  <th></th>
+                  <th className={styles.damageFormula}>{damageFormula}</th>
+                  <th>BTM: {armorStore.btm}</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {attack.hits.map((hit, index) => {
+                  const val = damageCalculations.hits[index];
+                  return (
+                    <tr key={index} className={styles.hitRow}>
+                      <td className={styles.indexCell}>{index + 1}</td>
+                      <td className={styles.locationCell}>
+                        {HIT_LOCATIONS_DISPLAY[hit.location]}
+                      </td>
+                      <td className={styles.damageCell}>
+                        {hit.damage.result}{" "}
+                        <span className={styles.damageValues}>
+                          ({hit.damage.values.join(", ")})
+                        </span>
+                      </td>
+                      <td
+                        className={clsx({
+                          [styles.highlight]: val.sp > 0 && val.armorPenetrated,
+                          [styles.dimm]: val.sp == 0,
+                        })}
+                      >
+                        {val.sp}
+                        {ap &&
+                          val.armorPenetrated &&
+                          `(${Math.floor(val.sp / 2)})`}
+                      </td>
+                      <td
+                        className={clsx({
+                          [styles.dimm]: val.dmg == 0,
+                        })}
+                      >
+                        {val.dmg}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
             <div className={styles.summaryBlock}>
               <h3 className={styles.title}>Summary</h3>
               <table className={styles.damageTable}>

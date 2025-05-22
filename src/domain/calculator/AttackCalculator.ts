@@ -61,13 +61,8 @@ export class AttackCalculator {
     weapon: Weapon,
     skillValue: number,
     range: Range,
-    situationalModifiers: number[] = [],
   ): AttackResult {
-    const attackRoll = this.computeAttack(
-      skillValue,
-      weapon.accuracy,
-      ...situationalModifiers,
-    );
+    const attackRoll = this.computeAttack(skillValue, weapon.accuracy);
 
     if (attackRoll.isCriticalFailure) {
       return {
@@ -88,18 +83,12 @@ export class AttackCalculator {
     };
   }
 
-  computeBurst(
-    weapon: Weapon,
-    skillValue: number,
-    range: Range,
-    situationalModifiers: number[] = [],
-  ): AttackResult {
+  computeBurst(weapon: Weapon, skillValue: number, range: Range): AttackResult {
     const burstBonus = APPLY_BURST_BONUS.has(range) ? BURST_BONUS : 0;
     const attackRoll = this.computeAttack(
       skillValue,
       weapon.accuracy,
       burstBonus,
-      ...situationalModifiers,
     );
 
     if (attackRoll.isCriticalFailure) {
@@ -127,7 +116,6 @@ export class AttackCalculator {
     skillValue: number,
     numberOfTargets: number,
     range: Range,
-    situationalModifiers: number[] = [],
   ): FullAutoResult {
     const targets: FullAutoResult = [];
     const roundsPerTarget = Math.floor(weapon.rateOfFire / numberOfTargets);
@@ -144,7 +132,6 @@ export class AttackCalculator {
         skillValue,
         weapon.accuracy,
         attackBonus,
-        ...situationalModifiers,
       );
 
       if (attackRoll.isCriticalFailure) {

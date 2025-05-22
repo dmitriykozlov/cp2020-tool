@@ -13,7 +13,7 @@ interface WeaponCardProps {
 }
 
 export const WeaponCard: React.FC<WeaponCardProps> = ({ weapon }) => {
-  const [showFull, setShowFull] = useState(false);
+  const [showFull, setShowFull] = useState(true);
   const accuracy =
     weapon.accuracy < 0 ? weapon.accuracy : "+" + weapon.accuracy;
 
